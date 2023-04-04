@@ -10,7 +10,7 @@ def color_filter(img, color, scale):
         dst[:, :, 1] = cv2.multiply(dst[:, :, 1], scale)
     if color == 'red' or color == 2:
         r_channel = dst[:, :, 2]
-        g_b_mask = r_channel >= 150  # R값이 150 이상인 픽셀에 대해 G,B값 변경
+        g_b_mask = r_channel >= 200  # R값이 150 이상인 픽셀에 대해 G,B값 변경
         dst[:, :, 1] = np.where(g_b_mask, cv2.multiply(dst[:, :, 1], 0.8), dst[:, :, 1])
         dst[:, :, 0] = np.where(g_b_mask, cv2.multiply(dst[:, :, 0], 0.8), dst[:, :, 0])
         dst[:, :, 2] = cv2.multiply(r_channel, scale)
@@ -35,7 +35,7 @@ capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
 while True:
     ret, frame = capture.read()     # 카메라로부터 영상을 받아 frame에 저장
     cv2.imshow("original", frame)   # 원본 영상 출력
-    filered = color_filter(frame, 'red', 1.2)   # 원본영상에서 빨간색을 강조
+    filered = color_filter(frame, 'red', 1)   # 원본영상에서 빨간색을 강조
     cv2.imshow("red", filered)      # 색감을 바꾼 영상 출력
     # brightness = set_brightness(frame, 20)  # 밝기를 전체적으로 20픽셀 밝게 해줌
     # cv2.imshow("brightness", brightness)    # 밝기를 바꾼 영상 출력
