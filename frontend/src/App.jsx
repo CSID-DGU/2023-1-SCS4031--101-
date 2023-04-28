@@ -1,7 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 
 export default function App() {
+  const [data, setData] = useState([{}]);
+
+  useEffect(() => {
+    // 데이터를 가져오는 비동기 함수
+    async function fetchData() {
+      const response = await fetch("http://localhost:5000/test");
+      const data = await response.json();
+      setData(data);
+    }
+    fetchData();
+  }, []);
+
   const [hue, setHue] = useState(0);
   const [saturation, setSaturation] = useState(100);
   const [value, setValue] = useState(100);
@@ -24,6 +36,14 @@ export default function App() {
 
   return (
     <Wrap>
+      <div>
+        {typeof data.CorrectionArray === "undefined" ? (
+          <p>Loading...!</p>
+        ) : (
+          data.CorrectionArray.map((value, i) => <p key={i}>{value}</p>)
+        )}
+      </div>
+
       <img
         src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Ishihara_9.svg/1200px-Ishihara_9.svg.png"
         style={{ filter: getFilterStyle() }}
