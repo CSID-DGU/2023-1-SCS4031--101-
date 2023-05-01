@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 export default function BlindTest() {
   const [data, setData] = useState([{}]);
@@ -43,7 +44,6 @@ export default function BlindTest() {
           data.CorrectionArray.map((value, i) => <p key={i}>{value}</p>)
         )}
       </div>
-
       <img
         src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Ishihara_9.svg/1200px-Ishihara_9.svg.png"
         style={{ filter: getFilterStyle() }}
@@ -81,6 +81,9 @@ export default function BlindTest() {
           onChange={updateValue}
         />
       </label>
+      <Link to="/video" style={{ textDecoration: "none", color: "inherit" }}>
+        <button>video</button>
+      </Link>
     </Wrap>
   );
 }
