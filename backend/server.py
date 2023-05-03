@@ -14,6 +14,7 @@ def members():
     jo = {"CorrectionArray": ["Correction1", "Correction2", "Correction3"]}
     return jsonify(jo)
 
+"""
 
 @application.route("/")
 def home():
@@ -31,7 +32,6 @@ def video():
 def opencv():
     return Response(gen_frames(),
                     mimetype="multipart/x-mixed-replace; boundary=frame")
-"""
 
 """
 
