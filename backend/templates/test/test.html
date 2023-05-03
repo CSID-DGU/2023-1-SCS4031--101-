@@ -1,19 +1,97 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta
+<!--
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="utf-8" />
+      <meta
       name="viewport"
       content="width=device-width, initial-scale=1, shrink-to-fit=no"
-    />
-    <title>OneOOne</title>
+      />
+      <title>Test</title>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $("#s-slider").on("input", function () {
+          var h_min = 0;
+          var h_max = 30;
+          var v_min = 50;
+          var v_max = 100;
+          var s_value = $("#s-slider").val();
+          var img_url = $("img").attr("src");
+          $.ajax({
+            url: "/adjust_s",
+            type: "POST",
+            data: {
+              h_min: h_min,
+              h_max: h_max,
+              v_min: v_min,
+              v_max: v_max,
+              s_value: s_value,
+              img_url: img_url,
+            },
+            success: function (response) {
+              $("img").attr("src", "static/" + response.img_name);
+              $("#s-value").val(response.s_value);
+            },
+          });
+        });
+        $("#submit-btn").click(function () {
+          var s_value = $("#s-value").val();
+          window.location.href = "/video?s_value=" + s_value;
+        });
+      });
+    </script>
   </head>
   <body>
-    <img
-      src="https://i.etsystatic.com/20638585/r/il/46eba0/4166430274/il_794xN.4166430274_mf2h.jpg"
+    <img src="../../image/test.jpg" />
+    <input
+    type="range"
+    min="0"
+    max="255"
+    step="1"
+    value="0"
+    class="slider"
+    id="s-slider"
     />
-    <img
-      src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FuYWn7%2FbtqGsoFJzYb%2Fpqim581knS7wu2chfAK5j1%2Fimg.jpg"
-    />
+    <input type="hidden" name="s_value" id="s-value" />
+    <input type="button" value="Submit" id="submit-btn" />
+    <a href="/video">video</a>
+  </body>
+</html>
+-->
+<!--
+  <img src="../../image/test.jpg" />
+  <a href="/video">video</a>
+-->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Test</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+      $(function () {
+        $("#s").on("input", function () {
+          $.ajax({
+            type: "POST",
+            url: "/test",
+            data: { s: $("#s").val() },
+            dataType: "json",
+            success: function (response) {
+              if (response.result == "success") {
+                $("#img").attr(
+                  "src",
+                  "../../image/test.jpg?" + new Date().getTime()
+                );
+              }
+            },
+          });
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <img id="img" src="../../image/test.jpg" />
+    <input id="s" type="range" min="0" max="255" value="128" />
   </body>
 </html>
