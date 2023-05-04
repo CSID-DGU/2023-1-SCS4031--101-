@@ -1,9 +1,11 @@
 from flask import Flask, render_template, request, Response, jsonify
 from flask_cors import CORS
+from flask_socketio import SocketIO, emit
 import cv2
 import numpy as np
 
 application = Flask(__name__)
+socketio = SocketIO(application)
 
 #"비동기처리"
 CORS(application)
