@@ -1,26 +1,25 @@
-import styled from "styled-components";
-/////
 import React, { useState, useEffect } from "react";
-/////
+import styled from "styled-components";
 
 export default function Video() {
-  /////
-  const [data, setData] = useState([{}]);
+  const [image, setImage] = useState(null);
 
   useEffect(() => {
-    // 데이터를 가져오는 비동기 함수
-    async function fetchData() {
-      const response = await fetch("http://localhost:5000/video");
-      const data = await response.json();
-      setData(data);
+    async function fetchImage() {
+      const response = await fetch("http://127.0.0.1:5000/opencv");
+      const blob = await response.blob();
+      setImage(URL.createObjectURL(blob));
     }
-    fetchData();
+    fetchImage();
   }, []);
-  /////
 
   return (
     <Wrap>
-      <img src="/opencv" />
+      {image ? (
+        <img src="http://127.0.0.1:5000/opencv" alt="image" />
+      ) : (
+        <p>Loading...</p>
+      )}
     </Wrap>
   );
 }

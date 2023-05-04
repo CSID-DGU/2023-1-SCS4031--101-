@@ -4,9 +4,7 @@ import cv2
 import numpy as np
 
 application = Flask(__name__)
-
-#"비동기처리"
-CORS(application)
+CORS(application) #비동기처리
 
 @application.route("/")
 def home():
@@ -100,8 +98,9 @@ def hg_gen_frames():
 def members():
     jo = {"CorrectionArray": ["Correction1", "Correction2", "Correction3"]}
     return jsonify(jo)
-
 """여기까지hg"""
+
+
 
 
 
