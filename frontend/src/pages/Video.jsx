@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 export default function Video() {
   const [image, setImage] = useState(null);
+
   useEffect(() => {
     async function fetchImage() {
       const response = await fetch("http://127.0.0.1:5000/opencv");
