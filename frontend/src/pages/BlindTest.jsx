@@ -1,18 +1,53 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 export default function BlindTest() {
   const [data, setData] = useState([{}]);
 
+  // useEffect(() => {
+  //   // 데이터를 가져오는 비동기 함수
+  //   async function fetchData() {
+  //     try {
+  //       const response = await fetch("http://localhost:5000/test");
+  //       const jsondata = await response.json();
+  //       setData(jsondata);
+  //       console.log("data :", data);
+  //     } catch (error) {
+  //       console.log("error :", error);
+  //     }
+  //   }
+  //   fetchData();
+  // }, []);
+
+  // useEffect(() => {
+  //   axios({
+  //     method: "get",
+  //     url: "http://localhost:5000/test",
+  //   })
+  //     .then((response) => {
+  //       setData(response.data);
+  //       console.log("data :", response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error fetching data:", error);
+  //     });
+  // }, []);
+
   useEffect(() => {
-    // 데이터를 가져오는 비동기 함수
-    async function fetchData() {
-      const response = await fetch("http://localhost:5000/test");
-      const data = await response.json();
-      setData(data);
-    }
-    fetchData();
+    axios({
+      method: "get",
+      url: "http://localhost:5000/opencv",
+    })
+      .then((response) => {
+        console.log("Full response:", response); // Add this line to log the entire response object
+        setData(response.data);
+        console.log("data :", response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
   }, []);
 
   const [hue, setHue] = useState(0);
@@ -37,6 +72,7 @@ export default function BlindTest() {
 
   return (
     <Wrap>
+      <img src={data} />
       <div>
         {typeof data.CorrectionArray === "undefined" ? (
           <p>Loading...!</p>
