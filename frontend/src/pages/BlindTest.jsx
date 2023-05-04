@@ -8,7 +8,7 @@ export default function BlindTest() {
   useEffect(() => {
     // 데이터를 가져오는 비동기 함수
     async function fetchData() {
-      const response = await fetch("http://localhost:5000/test");
+      const response = await fetch("http://localhost:5000/json");
       const data = await response.json();
       setData(data);
     }

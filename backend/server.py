@@ -8,15 +8,6 @@ application = Flask(__name__)
 #"비동기처리"
 CORS(application)
 
-"""
-
-@application.route("/test")
-def members():
-    jo = {"CorrectionArray": ["Correction1", "Correction2", "Correction3"]}
-    return jsonify(jo)
-
-"""
-
 @application.route("/")
 def home():
     return render_template("index.html")
@@ -68,13 +59,9 @@ def video():
 
 @application.route("/opencv")
 def opencv():
-    return Response(gen_frames(),
+    return Response(hg_gen_frames(),
                     mimetype="multipart/x-mixed-replace; boundary=frame")
 
-""""""
-
-"""
-"""
 # 색감 변경 함수 (수정)
 def color_filter(img, color, scale):
     dst = np.array(img, np.uint8)
@@ -91,7 +78,7 @@ def color_filter(img, color, scale):
     return dst
 
 # Flask 애플리케이션 라우팅 함수
-def gen_frames():
+def hg_gen_frames():
     capture = cv2.VideoCapture(0)
     capture.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
     capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
@@ -109,28 +96,23 @@ def gen_frames():
     
     capture.release()
 
-"""
+@application.route("/json")
+def members():
+    jo = {"CorrectionArray": ["Correction1", "Correction2", "Correction3"]}
+    return jsonify(jo)
 
-# 밝기 변경 함수
-def set_brightness(img, scale):         
-    return cv2.add(img, scale)          
+"""여기까지hg"""
 
-# 대비 변경 함수
-def set_contrast(img, scale):           
-    return np.uint8(np.clip((1 + scale) * img - 128 * scale, 0, 255))   
 
-def set_size(img, scale):
-    return cv2.resize(img, dsize=(int(img.shape[1]*scale), int(img.shape[0]*scale)), interpolation=cv2.INTER_AREA)
 
-"""
-
+"""여기부터yh"""
 @application.route("/yhvideo")
 def yhvideo():
     return render_template('yhvideo/yhvideo.html')
 
 @application.route("/yhopencv")
 def yhopencv():
-    return Response(gen_frames(),
+    return Response(yh_gen_frames(),
                     mimetype="multipart/x-mixed-replace; boundary=frame")
 
 # HSV Saturation 조절 함수
@@ -143,7 +125,7 @@ def adjust_saturation(img, r_threshold, scale):
     return cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
 
 # 카메라 영상을 받아올 객체 선언 및 설정(영상 소스, 해상도 설정)
-def gen_frames():
+def yh_gen_frames():
     capture = cv2.VideoCapture(0)
     capture.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
     capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
@@ -151,12 +133,23 @@ def gen_frames():
     while True:
      ret, frame = capture.read()     # 카메라로부터 영상을 받아 frame에 저장
      cv2.imshow("original", frame)   # 원본 영상 출력
+     """
+     """
     
-     adjusted = adjust_saturation(frame, 120, 2)   # 원본 영상에서 R값이 150 이상인 픽셀의 S값을 1.2배로 조절
-     cv2.imshow("adjusted", adjusted)      # HSV 조절된 영상 출력
+     # adjusted = adjust_saturation(frame, 120, 2)   # 원본 영상에서 R값이 150 이상인 픽셀의 S값을 1.2배로 조절
+     # cv2.imshow("adjusted", adjusted)      # HSV 조절된 영상 출력
+     """
+     """
+     filered = color_filter(frame, 'red', 1)   
+     ret, buffer = cv2.imencode('.jpg', filered)
+     frame = buffer.tobytes()
+     yield (b'--frame\r\n'
+            b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+
+     capture.release()
     
      if cv2.waitKey(1) == ord('q'):
         break
-
+     
 if __name__ == '__main__':
     application.run(debug=True)
