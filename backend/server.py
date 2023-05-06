@@ -51,9 +51,9 @@ def test():
 
 @application.route("/video")
 def video():
-    s_value = request.args.get('s_value')
-    # jo보여주기ㄱㄱ
-    return render_template('video/video.html', s_value=s_value)
+    s1 = int(request.args.get('s1', 100))
+    s2 = int(request.args.get('s2', 100))
+    return render_template('video/video.html', s1=s1, s2=s2) # 여기에서 s1,s2이 의미하는 것은?
 
 @application.route("/opencv")
 def opencv():

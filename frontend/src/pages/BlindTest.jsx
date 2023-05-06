@@ -1,99 +1,139 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 export default function BlindTest() {
-  /*
-  const [data, setData] = useState([{}]);
-  useEffect(() => {
-    // 데이터를 가져오는 비동기 함수
-    async function fetchData() {
-      const response = await fetch("http://localhost:5000/json");
-      const data = await response.json();
-      setData(data);
-    }
-    fetchData();
-  }, []);
-  */
+  const [saturation1, setSaturation1] = useState(100);
+  const [saturation2, setSaturation2] = useState(100);
+  const canvasRef = useRef(null);
 
-  /*
-  const [hue, setHue] = useState(0);
-  const [saturation, setSaturation] = useState(100);
-  const [value, setValue] = useState(100);
-  
-  const updateHue = (e) => {
-    setHue(e.target.value);
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas.getContext("2d");
+    const image = new Image();
+    image.src = "../image/test3.jpg";
+
+    const renderImage = () => {
+      canvas.width = image.width;
+      canvas.height = image.height;
+      ctx.drawImage(image, 0, 0, image.width, image.height);
+
+      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+      const data = imageData.data;
+
+      for (let i = 0; i < data.length; i += 4) {
+        const r = data[i];
+        const g = data[i + 1];
+        const b = data[i + 2];
+
+        // Convert RGB to HSV
+        let h, s, v;
+        const max = Math.max(r, g, b);
+        const min = Math.min(r, g, b);
+        const diff = max - min;
+
+        if (max === min) {
+          h = 0;
+        } else if (max === r) {
+          h = (60 * ((g - b) / diff) + 360) % 360;
+        } else if (max === g) {
+          h = (60 * ((b - r) / diff) + 120) % 360;
+        } else {
+          h = (60 * ((r - g) / diff) + 240) % 360;
+        }
+
+        v = max / 255;
+        s = max === 0 ? 0 : diff / max;
+
+        // Apply saturation only to pixels with hue between 0 and 30 or 90 and 150
+        if (h >= 0 && h <= 50) {
+          s *= saturation1 / 100;
+        } else if (h >= 50 && h <= 150) {
+          s *= saturation2 / 100;
+        }
+
+        // Convert HSV back to RGB
+        const hi = Math.floor(h / 60) % 6;
+        const f = h / 60 - Math.floor(h / 60);
+        const p = v * (1 - s) * 255;
+        const q = v * (1 - f * s) * 255;
+        const t = v * (1 - (1 - f) * s) * 255;
+
+        if (hi === 0) {
+          data[i] = v * 255;
+          data[i + 1] = t;
+          data[i + 2] = p;
+        } else if (hi === 1) {
+          data[i] = q;
+          data[i + 1] = v * 255;
+          data[i + 2] = p;
+        } else if (hi === 2) {
+          data[i] = p;
+          data[i + 1] = v * 255;
+          data[i + 2] = t;
+        } else if (hi === 3) {
+          data[i] = p;
+          data[i + 1] = q;
+          data[i + 2] = v * 255;
+        } else if (hi === 4) {
+          data[i] = t;
+          data[i + 1] = p;
+          data[i + 2] = v * 255;
+        } else {
+          data[i] = v * 255;
+          data[i + 1] = p;
+          data[i + 2] = q;
+        }
+      }
+      ctx.putImageData(imageData, 0, 0);
+    };
+
+    image.onload = renderImage;
+    renderImage(); // Render image initially
+
+    return () => {
+      image.onload = null; // Cleanup
+    };
+  }, [saturation1, saturation2]);
+
+  const updateSaturation1 = (e) => {
+    setSaturation1(e.target.value);
   };
-  
-  const updateSaturation = (e) => {
-    setSaturation(e.target.value);
+
+  const updateSaturation2 = (e) => {
+    setSaturation2(e.target.value);
   };
-  
-  const updateValue = (e) => {
-    setValue(e.target.value);
-  };
-  
-  const getFilterStyle = () => {
-    return `hue-rotate(${hue}deg) saturate(${saturation}%) brightness(${value}%)`;
-  };
-  */
 
   return (
     <Wrap>
-      {/* 이미지를 표시할 canvas 요소 */}
-      <canvas id="canvas"></canvas>
-
-      {/* 슬라이드바 */}
-      <input type="range" min="0" max="255" value="128" id="slider"></input>
-
-      {/*
-      <div>
-      {typeof data.CorrectionArray === "undefined" ? (
-      <p>Loading...!</p>
-      ) : (
-        data.CorrectionArray.map((value, i) => <p key={i}>{value}</p>)
-        )}
-        </div>
-        <img
-        src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Ishihara_9.svg/1200px-Ishihara_9.svg.png"
-        style={{ filter: getFilterStyle() }}
-        />
-        <br />
-        <label>
-        H:
+      <canvas ref={canvasRef} />
+      <br />
+      <label>
+        S1:
         <input
-        type="range"
-        min="0"
-        max="360"
-        value={hue}
-        onChange={updateHue}
-        />
-        </label>
-        <br />
-        <label>
-        S:
-        <input
-        type="range"
-        min="0"
-        max="200"
-          value={saturation}
-          onChange={updateSaturation}
-          />
-          </label>
-          <br />
-          <label>
-          V:
-          <input
           type="range"
           min="0"
           max="200"
-          value={value}
-          onChange={updateValue}
-          />
-          </label>
-      */}
-
-      <Link to="/video" style={{ textDecoration: "none", color: "inherit" }}>
+          value={saturation1}
+          onChange={updateSaturation1}
+        />
+      </label>
+      <br />
+      <label>
+        S2:
+        <input
+          type="range"
+          min="0"
+          max="200"
+          value={saturation2}
+          onChange={updateSaturation2}
+        />
+      </label>
+      <br />
+      <Link
+        to={`/video?s1=${saturation1}&s2=${saturation2}`}
+        style={{ textDecoration: "none", color: "inherit" }}
+      >
         <button>video</button>
       </Link>
     </Wrap>
@@ -101,7 +141,7 @@ export default function BlindTest() {
 }
 
 const Wrap = styled.div`
-  img {
+  canvas {
     width: 30vw;
     height: 60vh;
   }
