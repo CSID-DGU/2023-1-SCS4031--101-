@@ -1,27 +1,53 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 
 export default function Video() {
-  const [image, setImage] = useState(null);
+  /*
+  const [data, setData] = useState([{}]);
+  useEffect(() => {
+    async function fetchData() {
+      const response = await fetch("http://localhost:5000/json");
+      const data = await response.json();
+      setData(data);
+    }
+    fetchData();
+  }, []);
+   */
 
   useEffect(() => {
-    async function fetchImage() {
-      const response = await fetch("http://127.0.0.1:5000/opencv");
-      const blob = await response.blob();
-      setImage(URL.createObjectURL(blob));
-    }
-    fetchImage();
+    const imgElement = document.createElement("img");
+    imgElement.src = "http://127.0.0.1:5000/opencv";
+    imgElement.alt = "Real-time video stream";
+    const wrapElement = document.querySelector("#video-wrap");
+    wrapElement.appendChild(imgElement);
+
+    return () => {
+      // Clean up when the component is unmounted
+      wrapElement.removeChild(imgElement);
+    };
   }, []);
 
   return (
     <Wrap>
-      {image ? (
-        <img src="http://127.0.0.1:5000/opencv" alt="image" />
-      ) : (
-        <p>Loading...</p>
-      )}
+      {/*
+      <div>
+        {typeof data.CorrectionArray === "undefined" ? (
+          <p>Loading...</p>
+        ) : (
+          data.CorrectionArray.map((value, i) => <p key={i}>{value}</p>)
+        )}
+      </div>
+       */}
+      <div id="video-wrap"></div>
     </Wrap>
   );
 }
 
-const Wrap = styled.div``;
+const Wrap = styled.div`
+  padding: 0;
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
