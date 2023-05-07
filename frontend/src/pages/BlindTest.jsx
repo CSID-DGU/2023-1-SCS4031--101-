@@ -3,20 +3,30 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 export default function BlindTest() {
-  const [saturation1, setSaturation1] = useState(100);
-  const [saturation2, setSaturation2] = useState(100);
+  const [saturation1, setSaturation1] = useState(127);
+  const [saturation2, setSaturation2] = useState(127);
   const canvasRef = useRef(null);
+
+  const red1 = 0;
+  const red2 = 10;
+  const red3 = 305;
+  const red4 = 360;
+  const cyan1 = 180; // 120?
+  const cyan2 = 230; // 240?
+
+  const generateUrl = () => {
+    const url = `/video?r1=${red1}&r2=${red2}&r3=${red3}&r4=${red4}&c1=${cyan1}&c2=${cyan2}&s1=${saturation1}&s2=${saturation2}`;
+    return encodeURI(url);
+  };
 
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
     const image = new Image();
-    image.src = "../image/test666.jpg";
+    image.src = "../image/test1.jpg";
     /*
-    image.src = "../image/test999.jpg";
-    image.src = "../image/test777.png";
-    image.src = "../image/ff.jpg";
-    image.src = "../image/test4.jpg";
+    image.src = "../image/test2.jpg";
+    image.src = "../image/test3.jpg";
     */
 
     const renderImage = () => {
@@ -26,6 +36,8 @@ export default function BlindTest() {
 
       const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
       const data = imageData.data;
+
+      ctx.canvas.willReadFrequently = true; // willReadFrequently 속성 추가
 
       for (let i = 0; i < data.length; i += 4) {
         const r = data[i];
@@ -51,13 +63,9 @@ export default function BlindTest() {
         v = max / 255;
         s = max === 0 ? 0 : diff / max;
 
-        // Apply saturation only to pixels with hue between 0 and 30 or 90 and 150
-        if ((h >= 0 && h <= 10) || (h >= 305 && h <= 360)) {
+        if ((h >= red1 && h <= red2) || (h >= red3 && h <= red4)) {
           s *= saturation1 / 100;
-          /*
-        } else if (h >= 120 && h <= 240) {
-          */
-        } else if (h >= 180 && h <= 230) {
+        } else if (h >= cyan1 && h <= cyan2) {
           s *= saturation2 / 100;
         }
 
@@ -107,10 +115,12 @@ export default function BlindTest() {
 
   const updateSaturation1 = (e) => {
     setSaturation1(e.target.value);
+    // console.log(`saturation1: ${e.target.value}`);
   };
 
   const updateSaturation2 = (e) => {
     setSaturation2(e.target.value);
+    // console.log(`saturation2: ${e.target.value}`);
   };
 
   return (
@@ -118,31 +128,28 @@ export default function BlindTest() {
       <canvas ref={canvasRef} />
       <br />
       <label>
-        S1:
+        빨강:
         <input
           type="range"
           min="0"
-          max="200"
+          max="255"
           value={saturation1}
           onChange={updateSaturation1}
         />
       </label>
       <br />
       <label>
-        S2:
+        청록:
         <input
           type="range"
           min="0"
-          max="200"
+          max="255"
           value={saturation2}
           onChange={updateSaturation2}
         />
       </label>
       <br />
-      <Link
-        to={`/video?s1=${saturation1}&s2=${saturation2}`}
-        style={{ textDecoration: "none", color: "inherit" }}
-      >
+      <Link to={generateUrl()}>
         <button>video</button>
       </Link>
     </Wrap>
