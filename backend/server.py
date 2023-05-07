@@ -18,6 +18,8 @@ def video():
 
 """
 
+capture = None
+
 @application.route("/opencv")
 def response_video():
     r1 = int(request.args.get('r1', 100))
@@ -65,6 +67,7 @@ def color_filter(img, r1, r2, r3, r4, c1, c2, s1, s2):
     return cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
 
 def gen_frames(r1, r2, r3, r4, c1, c2, s1, s2):
+    global capture
     capture = cv2.VideoCapture(0)
     capture.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
     capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
@@ -82,6 +85,14 @@ def gen_frames(r1, r2, r3, r4, c1, c2, s1, s2):
                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
 
     capture.release()
+
+@application.route("/stop")
+def stop_video():
+    global capture
+    if capture is not None:
+        capture.release()
+        capture = None
+    return "Camera stopped"
 
 if __name__ == '__main__':
     application.run(debug=True)

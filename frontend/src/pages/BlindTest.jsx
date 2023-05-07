@@ -106,7 +106,7 @@ export default function BlindTest() {
     };
 
     image.onload = renderImage;
-    renderImage(); // Render image initially
+    // renderImage(); // Render image initially
 
     return () => {
       image.onload = null; // Cleanup
