@@ -10,45 +10,6 @@ CORS(application) #비동기처리
 def home():
     return render_template("index.html")
 
-@application.route("/test", methods=['POST'])
-def test():
-    """
-    img_url = request.form['img_url']
-    img = cv2.imread(img_url)
-    h_min, h_max, v_min, v_max = int(request.form['h_min']), int(request.form['h_max']), int(request.form['v_min']), int(request.form['v_max'])
-    s_value = int(request.form['s_value'])
-    img_hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
-    mask = cv2.inRange(img_hsv, (h_min, 0, v_min), (h_max, 255, v_max))
-    img_hsv[mask == 255, 1] = s_value
-    img = cv2.cvtColor(img_hsv, cv2.COLOR_HSV2BGR)
-    img_name = 'output.jpg'
-    cv2.imwrite(f'static/{img_name}', img)
-    jo = {"CorrectionArray": ["Correction1", "Correction2", "Correction3"]}
-    return render_template("/test/test.html", jo)
-    """
-    # 이미지 파일 읽어오기
-    img = cv2.imread('test.jpg')
-
-    # 이미지 파일을 HSV 색공간으로 변환하기
-    hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
-
-    # 픽셀의 HSV값 읽어오기
-    h, s, v = cv2.split(hsv)
-
-    # 조건에 맞는 픽셀의 인덱스 찾기
-    indices = (h <= 30) & (v >= 50) & (v <= 100)
-    indices = indices.nonzero()
-
-    # 조건에 맞는 픽셀의 색상 변경하기
-    s[indices] = request.form['s']
-
-    # 변경된 이미지 파일 반환하기
-    hsv = cv2.merge([h, s, v])
-    img = cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
-    cv2.imwrite('test.jpg', img)
-
-    return jsonify({'result': 'success'})
-
 @application.route("/video")
 def video():
     s1 = int(request.args.get('s1', 100))
@@ -57,6 +18,9 @@ def video():
 
 @application.route("/opencv")
 def opencv():
+    s1 = int(request.args.get('s1', 100))
+    s2 = int(request.args.get('s2', 100))
+
     return Response(hg_gen_frames(),
                     mimetype="multipart/x-mixed-replace; boundary=frame")
 

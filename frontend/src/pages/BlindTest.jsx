@@ -11,7 +11,13 @@ export default function BlindTest() {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
     const image = new Image();
-    image.src = "../image/test3.jpg";
+    image.src = "../image/test666.jpg";
+    /*
+    image.src = "../image/test999.jpg";
+    image.src = "../image/test777.png";
+    image.src = "../image/ff.jpg";
+    image.src = "../image/test4.jpg";
+    */
 
     const renderImage = () => {
       canvas.width = image.width;
@@ -46,9 +52,12 @@ export default function BlindTest() {
         s = max === 0 ? 0 : diff / max;
 
         // Apply saturation only to pixels with hue between 0 and 30 or 90 and 150
-        if (h >= 0 && h <= 50) {
+        if ((h >= 0 && h <= 10) || (h >= 305 && h <= 360)) {
           s *= saturation1 / 100;
-        } else if (h >= 50 && h <= 150) {
+          /*
+        } else if (h >= 120 && h <= 240) {
+          */
+        } else if (h >= 180 && h <= 230) {
           s *= saturation2 / 100;
         }
 
@@ -142,7 +151,7 @@ export default function BlindTest() {
 
 const Wrap = styled.div`
   canvas {
-    width: 30vw;
+    width: 90vw;
     height: 60vh;
   }
 `;
