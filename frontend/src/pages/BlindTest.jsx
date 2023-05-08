@@ -6,51 +6,6 @@ import axios from "axios";
 export default function BlindTest() {
   /*
   const [data, setData] = useState([{}]);
-<<<<<<< HEAD
-
-  // useEffect(() => {
-  //   // 데이터를 가져오는 비동기 함수
-  //   async function fetchData() {
-  //     try {
-  //       const response = await fetch("http://localhost:5000/test");
-  //       const jsondata = await response.json();
-  //       setData(jsondata);
-  //       console.log("data :", data);
-  //     } catch (error) {
-  //       console.log("error :", error);
-  //     }
-  //   }
-  //   fetchData();
-  // }, []);
-
-  // useEffect(() => {
-  //   axios({
-  //     method: "get",
-  //     url: "http://localhost:5000/test",
-  //   })
-  //     .then((response) => {
-  //       setData(response.data);
-  //       console.log("data :", response.data);
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error fetching data:", error);
-  //     });
-  // }, []);
-
-  useEffect(() => {
-    axios({
-      method: "get",
-      url: "http://localhost:5000/opencv",
-    })
-      .then((response) => {
-        console.log("Full response:", response); // Add this line to log the entire response object
-        setData(response.data);
-        console.log("data :", response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching data:", error);
-      });
-=======
   useEffect(() => {
     // 데이터를 가져오는 비동기 함수
     async function fetchData() {
@@ -59,7 +14,6 @@ export default function BlindTest() {
       setData(data);
     }
     fetchData();
->>>>>>> d30b737ef3a6aca263bfdf53cd738bf514326443
   }, []);
   */
 
