@@ -12,20 +12,7 @@ def home():
 
 @application.route("/test", methods=['POST'])
 def test():
-    """
-    img_url = request.form['img_url']
-    img = cv2.imread(img_url)
-    h_min, h_max, v_min, v_max = int(request.form['h_min']), int(request.form['h_max']), int(request.form['v_min']), int(request.form['v_max'])
-    s_value = int(request.form['s_value'])
-    img_hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
-    mask = cv2.inRange(img_hsv, (h_min, 0, v_min), (h_max, 255, v_max))
-    img_hsv[mask == 255, 1] = s_value
-    img = cv2.cvtColor(img_hsv, cv2.COLOR_HSV2BGR)
-    img_name = 'output.jpg'
-    cv2.imwrite(f'static/{img_name}', img)
-    jo = {"CorrectionArray": ["Correction1", "Correction2", "Correction3"]}
-    return render_template("/test/test.html", jo)
-    """
+
     # 이미지 파일 읽어오기
     img = cv2.imread('test.jpg')
 
@@ -51,9 +38,9 @@ def test():
 
 @application.route("/video")
 def video():
-    s_value = request.args.get('s_value')
-    # jo보여주기ㄱㄱ
-    return render_template('video/video.html', s_value=s_value)
+    s1 = int(request.args.get('s1', 100))
+    s2 = int(request.args.get('s2', 100))
+    return render_template('video/video.html', s1=s1, s2=s2) # 여기에서 s1,s2이 의미하는 것은?
 
 @application.route("/opencv")
 def opencv():
@@ -94,17 +81,6 @@ def hg_gen_frames():
     
     capture.release()
 
-@application.route("/json")
-def members():
-    jo = {"CorrectionArray": ["Correction1", "Correction2", "Correction3"]}
-    return jsonify(jo)
-"""여기까지hg"""
-
-
-
-
-
-"""여기부터yh"""
 @application.route("/yhvideo")
 def yhvideo():
     return render_template('yhvideo/yhvideo.html')
@@ -114,41 +90,35 @@ def yhopencv():
     return Response(yh_gen_frames(),
                     mimetype="multipart/x-mixed-replace; boundary=frame")
 
-# HSV Saturation 조절 함수
-def adjust_saturation(img, r_threshold, scale):
+def color_filter2(img, scale):
     hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
-    r_channel = img[:, :, 2]
-    r_mask = r_channel >= r_threshold
+    
+    lower_hsv = np.array([130, 0, 0])
+    upper_hsv = np.array([180, 255, 255])
 
-    hsv[:, :, 1] = np.where(r_mask, cv2.multiply(hsv[:, :, 1], scale), hsv[:, :, 1])
+    mask = cv2.inRange(hsv, lower_hsv, upper_hsv)
+    hsv[mask == 255, 1] = scale
+
     return cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
 
-# 카메라 영상을 받아올 객체 선언 및 설정(영상 소스, 해상도 설정)
 def yh_gen_frames():
     capture = cv2.VideoCapture(0)
     capture.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
     capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
 
     while True:
-     ret, frame = capture.read()     # 카메라로부터 영상을 받아 frame에 저장
-     cv2.imshow("original", frame)   # 원본 영상 출력
-     """
-     """
+        ret, frame = capture.read()
+        if not ret:
+            break
+        else:
+            filtered = color_filter2(frame, 180)   
+            ret, buffer = cv2.imencode('.jpg', filtered)
+            frame = buffer.tobytes()
+            yield (b'--frame\r\n'
+                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
     
-     # adjusted = adjust_saturation(frame, 120, 2)   # 원본 영상에서 R값이 150 이상인 픽셀의 S값을 1.2배로 조절
-     # cv2.imshow("adjusted", adjusted)      # HSV 조절된 영상 출력
-     """
-     """
-     filered = color_filter(frame, 'red', 1)   
-     ret, buffer = cv2.imencode('.jpg', filered)
-     frame = buffer.tobytes()
-     yield (b'--frame\r\n'
-            b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+    capture.release()
 
-     capture.release()
-    
-     if cv2.waitKey(1) == ord('q'):
-        break
-     
+
 if __name__ == '__main__':
     application.run(debug=True)
