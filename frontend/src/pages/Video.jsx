@@ -1,8 +1,11 @@
 import React, { useEffect } from "react";
 import React, { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 
 export default function Video() {
+  const location = useLocation();
+
   useEffect(() => {
     const imgElement = document.createElement("img");
     imgElement.src = "http://127.0.0.1:5000/opencv";
