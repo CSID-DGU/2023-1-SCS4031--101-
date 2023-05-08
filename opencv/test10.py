@@ -16,9 +16,9 @@ def set_saturation(img, h_range, target_s):
 
 # 핑크색에 가까운 빨간색 범위 설정
 h_range = (
-    np.array([145, 5, 0]),   # S 값 범위를 20에서 10으로 낮춤
+    np.array([145, 5, 0]),   
     np.array([179, 255, 255]),
-    np.array([0, 5, 0]),     # S 값 범위를 20에서 10으로 낮춤
+    np.array([0, 5, 0]),    
     np.array([40, 255, 255])
 )
 
@@ -30,7 +30,7 @@ while True:
     ret, frame = capture.read()
     cv2.imshow("original", frame)
     
-    adjusted = set_saturation(frame, h_range, 180)
+    adjusted = set_saturation(frame, h_range, 180) #S값을 180으로 고정
     cv2.imshow("adjusted", adjusted)
     
     if cv2.waitKey(1) == ord('q'):
