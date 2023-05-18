@@ -19,7 +19,7 @@ while True:
     ret, frame = capture.read()     # 카메라로부터 영상을 받아 frame에 저장
     cv2.imshow("original", frame)   # 원본 영상 출력
     
-    adjusted = adjust_saturation(frame, 120, 2)   # 원본 영상에서 R값이 150 이상인 픽셀의 S값을 1.2배로 조절
+    adjusted = adjust_saturation(frame, 120, 2)   # 원본 영상에서 R값이 120 이상인 픽셀의 S값을 2배로 조절
     cv2.imshow("adjusted", adjusted)      # HSV 조절된 영상 출력
     
     if cv2.waitKey(1) == ord('q'):
