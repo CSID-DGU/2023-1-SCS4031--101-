@@ -18,7 +18,7 @@ const Main = () => {
             <div className="text3">비디오변환사이트</div>
           </div>
           <div className="btnBx">
-            <Link to="/setting">
+            <Link to="/preview">
               <img className="startBtn" src={startBtn} />
             </Link>
             <Link to="/home">
