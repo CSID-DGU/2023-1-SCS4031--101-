@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import board from "../assets/board.png";
 import homeBtn from "../assets/homeBtn.png";
 import startBtn from "../assets/startBtn.png";
-import Typed from "react-typed";
+import { Link } from "react-router-dom";
 
 const Main = () => {
   return (
@@ -18,8 +18,12 @@ const Main = () => {
             <div className="text3">비디오변환사이트</div>
           </div>
           <div className="btnBx">
-            <img className="startBtn" src={startBtn} />
-            <img className="homeBtn" src={homeBtn} />
+            <Link to="/setting">
+              <img className="startBtn" src={startBtn} />
+            </Link>
+            <Link to="/home">
+              <img className="homeBtn" src={homeBtn} />
+            </Link>
           </div>
         </div>
       </div>
@@ -57,13 +61,13 @@ const Wrap = styled.div`
 
       .startBtn {
         cursor: pointer;
-        width: 50%;
+        width: 100%;
         height: 100%;
       }
 
       .homeBtn {
         cursor: pointer;
-        width: 25%;
+        width: 100%;
         height: 100%;
         margin-left: 20px;
       }
