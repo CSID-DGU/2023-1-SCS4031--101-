@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import board from "../assets/Board.png";
 import convertBtn from "../assets/Convert.png";
 import React from "react";
 import board from "../assets/board.png";
