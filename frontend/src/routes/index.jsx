@@ -1,15 +1,21 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import BlindTest from "../pages/Blindtest";
 import MainPage from "../pages/MainPage";
-import Video from "../pages/Video";
+import TestPage from "../pages/TestPage";
+import PreviewPage from "../pages/PreviewPage";
+import SettingPage from "../pages/SettingPage";
+import HomePage from "../pages/HomePage";
+import NaviagationBar from "../components/Navigation/NavigationBar";
 
 export default function RootRoute() {
   return (
     <BrowserRouter>
+      {/* <NaviagationBar /> */}
       <Routes>
         <Route path="/" element={<MainPage />} />
-        <Route path="/blindtest" element={<BlindTest />} />
-        <Route path="/video" element={<Video />} />
+        <Route path="/home" element={<HomePage />} />
+        <Route path="/test" element={<TestPage />} />
+        <Route path="/preview" element={<PreviewPage />} />
+        <Route path="/setting" element={<SettingPage />} />
       </Routes>
     </BrowserRouter>
   );
