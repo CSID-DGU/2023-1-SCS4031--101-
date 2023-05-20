@@ -1,9 +1,7 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import board from "../assets/Board.png";
 import convertBtn from "../assets/Convert.png";
-import homeBtn from "../assets/Home.png";
 import React from "react";
-import styled from "styled-components";
 import board from "../assets/board.png";
 import homeBtn from "../assets/homeBtn.png";
 import startBtn from "../assets/startBtn.png";
