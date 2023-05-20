@@ -4,7 +4,9 @@ import styled from "styled-components";
 const VideoSelect = () => {
   return (
     <Wrap>
-      <div className="text">3개의 화면에서 원하는 보정 화면을 선택해주세요</div>
+      <div className="text">
+        단계 3 : 3개의 화면에서 원하는 보정 화면을 선택해주세요
+      </div>
       <div className="videoWrap">
         <div className="preVideoWrap">
           <div className="preVideo">여기에 이전 비디오</div>
@@ -82,6 +84,7 @@ const Wrap = styled.div`
         height: 33%;
 
         .convertedVideo1 {
+          cursor: pointer;
           border: 1px solid black;
           width: 70%;
         }
@@ -101,6 +104,7 @@ const Wrap = styled.div`
         height: 33%;
 
         .convertedVideo2 {
+          cursor: pointer;
           border: 1px solid black;
           width: 70%;
         }
@@ -120,6 +124,7 @@ const Wrap = styled.div`
         height: 33%;
 
         .convertedVideo3 {
+          cursor: pointer;
           border: 1px solid black;
           width: 70%;
         }

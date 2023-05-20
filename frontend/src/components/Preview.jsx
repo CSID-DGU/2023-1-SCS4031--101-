@@ -12,7 +12,7 @@ const Preview = () => {
         <br />
         원하는 화면이 보이도록 카메라를 설정해주세요
       </div>
-      <div className="video"></div>
+      <div className="video">여기에 비디오</div>
       <div className="btnBx">
         <Link to="/">
           <div className="preBx">

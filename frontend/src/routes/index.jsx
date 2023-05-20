@@ -5,6 +5,7 @@ import PreviewPage from "../pages/PreviewPage";
 import SettingPage from "../pages/SettingPage";
 import HomePage from "../pages/HomePage";
 import VideoSelectPage from "../pages/VideoSelectPage";
+import VideoPage from "../pages/VideoPage";
 import NaviagationBar from "../components/Navigation/NavigationBar";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import "./transition.css";
@@ -22,6 +23,7 @@ function TransitionRoutes() {
           <Route path="/preview" element={<PreviewPage />} />
           <Route path="/setting" element={<SettingPage />} />
           <Route path="/videoselect" element={<VideoSelectPage />} />
+          <Route path="/video" element={<VideoPage />} />
         </Routes>
       </CSSTransition>
     </TransitionGroup>
