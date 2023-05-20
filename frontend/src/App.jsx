@@ -1,9 +1,12 @@
 import RootRoute from "./routes";
+import "./global.css";
 
 export default function App() {
   return (
     <div className="App">
-      <RootRoute />
+      <div className="app-wrapper">
+        <RootRoute />
+      </div>
     </div>
   );
 }

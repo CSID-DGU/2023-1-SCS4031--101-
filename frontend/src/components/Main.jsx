@@ -2,148 +2,171 @@ import styled, { css } from "styled-components";
 import board from "../assets/Board.png";
 import convertBtn from "../assets/Convert.png";
 import homeBtn from "../assets/Home.png";
+import React from "react";
+import styled from "styled-components";
+import board from "../assets/board.png";
+import homeBtn from "../assets/homeBtn.png";
+import startBtn from "../assets/startBtn.png";
 import { Link } from "react-router-dom";
 
-export default function Main() {
+const Main = () => {
   return (
     <Wrap>
-      <div className="textBox">
-        <div className="text1">안녕하세요일영일입니다</div>
-        <div className="text2">색각이상자를위한</div>
-        <div className="text3">비디오변환서비스</div>
-        <div className="btnBox">
-          <Link to="/preview">
-            <img className="convertBtn" src={convertBtn} />
-          </Link>
-          <img className="homeBtn" src={homeBtn} />
+      <div className="textBx">
+        <div className="textWrap">
+          <div className="text1">안녕하세요일영일입니다</div>
+          <div className="textWrap2">
+            <div className="text2">색각이상자를위한</div>
+          </div>
+          <div className="textWrap3">
+            <div className="text3">비디오변환사이트</div>
+          </div>
+          <div className="btnBx">
+            <Link to="/preview">
+              <img className="startBtn" src={startBtn} />
+            </Link>
+            <Link to="/home">
+              <img className="homeBtn" src={homeBtn} />
+            </Link>
+          </div>
         </div>
       </div>
-      <div className="imgBox">
-        <img className="boardImg" src={board} />
+      <div className="imgBx">
+        <div className="imgWrap">
+          <img src={board} />
+        </div>
       </div>
     </Wrap>
   );
-}
+};
 
-const typingAnimation = css`
-  border-right: 5px solid;
-  white-space: nowrap;
-  overflow: hidden;
-
-  @keyframes cursor {
-    50% {
-      border-color: transparent;
-    }
-  }
-
-  @keyframes typing {
-    from {
-      width: 0;
-    }
-  }
-`;
-
-const cursorEndAnimation = css`
-  @keyframes cursor-end {
-    100% {
-      border-color: transparent;
-    }
-  }
-`;
+export default Main;
 
 const Wrap = styled.div`
-  display: flex;
   margin: 0;
   padding: 0;
   min-height: 100vh;
-  min-width: 100vw;
-  box-sizing: border-box;
+  display: flex;
   background: linear-gradient(to bottom, #f04a4a, #a326f0);
   font-family: "Jua", sans-serif;
 
-  .textBox {
-    position: relative;
-    left: 13vw;
+  .textBx {
     flex: 1;
     display: flex;
     flex-direction: column;
+    align-items: center;
     justify-content: center;
-    align-items: flex-start;
-    color: #fff;
 
-    .text1 {
-      font-size: 3.5vw;
-      margin-bottom: 20px;
-      width: 70%;
-      ${typingAnimation}
-      animation: typing 2s steps(11), cursor 0.4s step-end infinite alternate, cursor-end 0.1s 2s forwards;
-      ${cursorEndAnimation}
-    }
-
-    .text2 {
-      visibility: hidden;
-      font-size: 4vw;
-      width: 57.8%;
-      ${typingAnimation}
-      animation: visibility 0s linear 2s forwards, typing 2s steps(8) 2s,
-        cursor 0.4s step-end 2s infinite alternate, cursor-end 0.1s 4s forwards;
-
-      @keyframes visibility {
-        100% {
-          visibility: visible;
-        }
-      }
-      ${cursorEndAnimation}
-    }
-    .text3 {
-      visibility: hidden;
-      font-size: 4vw;
-      margin-bottom: 5px;
-      width: 57%;
-      ${typingAnimation}
-      animation: visibility 0s linear 4s forwards, typing 2s steps(8) 4s,
-        cursor 0.4s step-end 4s infinite alternate;
-
-      @keyframes visibility {
-        100% {
-          visibility: visible;
-        }
-      }
-    }
-
-    .btnBox {
-      width: 40%;
+    .btnBx {
+      margin-top: 20px;
+      width: 25em;
+      height: 3.2em;
       display: flex;
 
-      a {
-        display: inline-block;
-        width: 50%;
-      }
-
-      .convertBtn {
-        width: 100%;
-        height: auto;
-        margin-right: 10px;
+      .startBtn {
         cursor: pointer;
+        width: 100%;
+        height: 100%;
       }
 
       .homeBtn {
-        width: 30%;
-        margin-left: 10px;
-        height: auto;
         cursor: pointer;
+        width: 100%;
+        height: 100%;
+        margin-left: 20px;
+      }
+    }
+
+    .textWrap {
+      position: relative;
+      left: 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+      justify-content: center;
+
+      .text1 {
+        color: white;
+        font-size: 4.5em;
+        margin-bottom: 20px;
+        border-right: 5px solid;
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        animation: typing 2s steps(11), cursor 0.4s step-end infinite alternate,
+          hideCursor 0.5s 2s step-end forwards;
+      }
+
+      .text2 {
+        border: 1px solid red;
+        color: white;
+        font-size: 5.5em;
+        border-right: 5px solid;
+        width: 98%;
+        white-space: nowrap;
+        overflow: hidden;
+        visibility: hidden;
+        animation: typing 2s steps(8) 2s forwards,
+          cursor 0.4s step-end infinite alternate 2s,
+          hideCursor 0.5s 2s step-end forwards, visibility 0s linear 2s forwards;
+      }
+
+      .text3 {
+        color: white;
+        font-size: 5.5em;
+        border-right: 5px solid;
+        width: 99%;
+        white-space: nowrap;
+        overflow: hidden;
+        visibility: hidden;
+        animation: typing 2s steps(8) 4s forwards,
+          cursor 0.4s step-end infinite alternate 4s,
+          visibility 0s linear 4s forwards;
+      }
+
+      @keyframes typing {
+        from {
+          width: 0;
+        }
+      }
+
+      @keyframes cursor {
+        50% {
+          border-color: transparent;
+        }
+      }
+
+      @keyframes hideCursor {
+        to {
+          border-color: transparent;
+        }
+      }
+
+      @keyframes visibility {
+        from {
+          visibility: hidden;
+        }
+        to {
+          visibility: visible;
+        }
       }
     }
   }
 
-  .imgBox {
+  .imgBx {
+    flex: 1;
     display: flex;
-    justify-content: flex-end;
     align-items: center;
-    flex: 1.2;
+    justify-content: flex-end;
 
-    .boardImg {
-      width: 75%;
+    .imgWrap {
+      width: 90%;
+      height: 80%;
+
+      img {
+        width: 100%;
+        height: 100%;
+      }
     }
   }
 `;
