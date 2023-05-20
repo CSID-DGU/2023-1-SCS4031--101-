@@ -17,7 +17,7 @@ export default function Setting() {
   const cyan2 = 230; // 240?
 
   const generateUrl = () => {
-    const url = `/video?r1=${red1}&r2=${red2}&r3=${red3}&r4=${red4}&c1=${cyan1}&c2=${cyan2}&s1=${saturation1}&s2=${saturation2}`;
+    const url = `/videoSelect?r1=${red1}&r2=${red2}&r3=${red3}&r4=${red4}&c1=${cyan1}&c2=${cyan2}&s1=${saturation1}&s2=${saturation2}`;
     return encodeURI(url);
   };
 
@@ -169,16 +169,13 @@ export default function Setting() {
                 <img src={preBtn} />
               </div>
             </Link>
-            <Link to="/videoSelect">
+            <Link to={generateUrl()}>
               <div className="nextWrap">
                 <img src={nextBtn} />
               </div>
             </Link>
           </div>
         </div>
-        {/* <Link to={generateUrl()}>
-          <button>video</button>
-        </Link> */}
       </div>
     </Wrap>
   );

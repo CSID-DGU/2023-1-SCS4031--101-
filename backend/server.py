@@ -6,22 +6,34 @@ import numpy as np
 application = Flask(__name__)
 CORS(application)
 
-"""
-
-@application.route("/")
-def home():
-    return render_template("index.html")
-
-@application.route("/video")
-def video():
-    return render_template('video/video.html')
-
-"""
-
 capture = None
 
-@application.route("/opencv")
-def response_video():
+@application.route("/beforeopencv")
+def bo_response_video():
+    return Response(bo_gen_frames(),
+                    mimetype="multipart/x-mixed-replace; boundary=frame")
+
+def bo_gen_frames():
+    global capture
+    capture = cv2.VideoCapture(0)
+    
+    capture.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
+    capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
+
+    while True:
+        ret, frame = capture.read()
+        if not ret:
+            break
+        else:
+            ret, buffer = cv2.imencode('.jpg', frame)
+            frame = buffer.tobytes()
+            yield (b'--frame\r\n'
+                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+
+    capture.release()
+
+@application.route("/afteropencv")
+def ao_response_video():
     r1 = int(request.args.get('r1', 0))
     r2 = int(request.args.get('r2', 0))
     r3 = int(request.args.get('r3', 0))
@@ -36,10 +48,10 @@ def response_video():
     s1 = np.clip(s1, 0, 255)
     s2 = np.clip(s2, 0, 255)
 
-    return Response(gen_frames(r1, r2, r3, r4, c1, c2, s1, s2),
+    return Response(ao_gen_frames(r1, r2, r3, r4, c1, c2, s1, s2),
                     mimetype="multipart/x-mixed-replace; boundary=frame")
 
-def color_filter(img, r1, r2, r3, r4, c1, c2, s1, s2):
+def ao_color_filter(img, r1, r2, r3, r4, c1, c2, s1, s2):
     hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 
     # Convert HSV range from (0-180, 0-255, 0-255) to (0-360, 0-100, 0-100)
@@ -70,7 +82,7 @@ def color_filter(img, r1, r2, r3, r4, c1, c2, s1, s2):
     hsv = np.transpose(hsv, [1, 2, 0])
     return cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
 
-def gen_frames(r1, r2, r3, r4, c1, c2, s1, s2):
+def ao_gen_frames(r1, r2, r3, r4, c1, c2, s1, s2):
     global capture
     capture = cv2.VideoCapture(0)
     
@@ -82,7 +94,7 @@ def gen_frames(r1, r2, r3, r4, c1, c2, s1, s2):
         if not ret:
             break
         else:
-            filtered = color_filter(frame, r1, r2, r3, r4, c1, c2, s1, s2)
+            filtered = ao_color_filter(frame, r1, r2, r3, r4, c1, c2, s1, s2)
             # print(f'r1: {r1}, r2: {r2}, r3: {r3}, r4: {r4}, c1: {c1}, c2: {c2}, s1: {s1}, s2: {s2}')
             ret, buffer = cv2.imencode('.jpg', filtered)
             frame = buffer.tobytes()
