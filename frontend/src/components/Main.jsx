@@ -15,7 +15,7 @@ const Main = () => {
             <div className="text2">색각이상자를위한</div>
           </div>
           <div className="textWrap3">
-            <div className="text3">비디오변환사이트</div>
+            <div className="text3">비디오변환서비스</div>
           </div>
           <div className="btnBx">
             <Link to="/preview">
