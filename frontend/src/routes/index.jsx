@@ -2,7 +2,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import BlindTest from "../pages/Blindtest";
 import MainPage from "../pages/MainPage";
 import Video from "../pages/Video";
-import Home from "../pages/Home";
 
 export default function RootRoute() {
   return (
