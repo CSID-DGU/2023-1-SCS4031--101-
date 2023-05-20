@@ -4,8 +4,10 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 
 export default function BlindTest() {
-  const [saturation1, setSaturation1] = useState(127);
-  const [saturation2, setSaturation2] = useState(127);
+  const [saturation1, setSaturation1] = useState(50);
+  const [saturation2, setSaturation2] = useState(50);
+  const saturation1ForOpenCV = saturation1 * 2.55;
+  const saturation2ForOpenCV = saturation2 * 2.55;
   const canvasRef = useRef(null);
 
   const red1 = 0;
@@ -16,7 +18,7 @@ export default function BlindTest() {
   const cyan2 = 230; // 240?
 
   const generateUrl = () => {
-    const url = `/video?r1=${red1}&r2=${red2}&r3=${red3}&r4=${red4}&c1=${cyan1}&c2=${cyan2}&s1=${saturation1}&s2=${saturation2}`;
+    const url = `/video?r1=${red1}&r2=${red2}&r3=${red3}&r4=${red4}&c1=${cyan1}&c2=${cyan2}&s1=${saturation1ForOpenCV}&s2=${saturation2ForOpenCV}`;
     return encodeURI(url);
   };
 
@@ -133,7 +135,7 @@ export default function BlindTest() {
         <input
           type="range"
           min="0"
-          max="255"
+          max="100"
           value={saturation1}
           onChange={updateSaturation1}
         />
@@ -144,7 +146,7 @@ export default function BlindTest() {
         <input
           type="range"
           min="0"
-          max="255"
+          max="100"
           value={saturation2}
           onChange={updateSaturation2}
         />
