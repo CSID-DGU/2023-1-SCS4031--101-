@@ -9,12 +9,25 @@ const VideoSelect = () => {
     const imgElement = document.createElement("img");
     imgElement.src = "http://127.0.0.1:5000/afteropencv";
     imgElement.alt = "ERROR";
+    imgElement.style.width = "100%";
+    imgElement.style.height = "100%";
+    imgElement.style.objectFit = "cover";
     const wrapElement = document.querySelector(".convertedVideo2");
     wrapElement.appendChild(imgElement);
+
+    const imgElementPre = document.createElement("img");
+    imgElementPre.src = "http://127.0.0.1:5000/beforeopencv";
+    imgElementPre.alt = "ERROR";
+    imgElementPre.style.width = "100%";
+    imgElementPre.style.height = "100%";
+    imgElementPre.style.objectFit = "cover";
+    const wrapElementPre = document.querySelector(".preVideo");
+    wrapElementPre.appendChild(imgElementPre);
 
     return () => {
       // Clean up when the component is unmounted
       wrapElement.removeChild(imgElement);
+      wrapElementPre.removeChild(imgElementPre);
       // Stop the camera when the component is unmounted
       // fetch("http://127.0.0.1:5000/stop");
     };
