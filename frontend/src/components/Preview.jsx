@@ -12,6 +12,9 @@ const Preview = () => {
     const imgElement = document.createElement("img");
     imgElement.src = "http://127.0.0.1:5000/beforeopencv";
     imgElement.alt = "ERROR";
+    imgElement.style.width = "100%";
+    imgElement.style.height = "100%";
+    imgElement.style.objectFit = "cover";
     const wrapElement = document.querySelector(".video");
     wrapElement.appendChild(imgElement);
 
@@ -68,6 +71,7 @@ const Wrap = styled.div`
     width: 50vw;
     height: 50vh;
     border: 1px solid black;
+    /* overflow: hidden; */
   }
 
   .btnBx {
