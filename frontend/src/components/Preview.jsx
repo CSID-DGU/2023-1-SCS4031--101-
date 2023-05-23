@@ -1,10 +1,28 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import preBtn from "../assets/preBtn.png";
 import nextBtn from "../assets/nextBtn.png";
 
 const Preview = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    const imgElement = document.createElement("img");
+    imgElement.src = "http://127.0.0.1:5000/beforeopencv";
+    imgElement.alt = "ERROR";
+    imgElement.style.width = "100%";
+    imgElement.style.height = "100%";
+    imgElement.style.objectFit = "cover";
+    const wrapElement = document.querySelector(".video");
+    wrapElement.appendChild(imgElement);
+
+    return () => {
+      wrapElement.removeChild(imgElement);
+    };
+  }, [location]);
+
   return (
     <Wrap>
       <div className="text">
@@ -12,7 +30,7 @@ const Preview = () => {
         <br />
         원하는 화면이 보이도록 카메라를 설정해주세요
       </div>
-      <div className="video">여기에 비디오</div>
+      <div className="video"></div>
       <div className="btnBx">
         <Link to="/">
           <div className="preBx">
@@ -53,6 +71,7 @@ const Wrap = styled.div`
     width: 50vw;
     height: 50vh;
     border: 1px solid black;
+    /* overflow: hidden; */
   }
 
   .btnBx {

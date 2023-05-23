@@ -1,7 +1,38 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 
 const VideoSelect = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    const imgElement = document.createElement("img");
+    imgElement.src = "http://127.0.0.1:5000/afteropencv";
+    imgElement.alt = "ERROR";
+    imgElement.style.width = "100%";
+    imgElement.style.height = "100%";
+    imgElement.style.objectFit = "cover";
+    const wrapElement = document.querySelector(".convertedVideo2");
+    wrapElement.appendChild(imgElement);
+
+    const imgElementPre = document.createElement("img");
+    imgElementPre.src = "http://127.0.0.1:5000/beforeopencv";
+    imgElementPre.alt = "ERROR";
+    imgElementPre.style.width = "100%";
+    imgElementPre.style.height = "100%";
+    imgElementPre.style.objectFit = "cover";
+    const wrapElementPre = document.querySelector(".preVideo");
+    wrapElementPre.appendChild(imgElementPre);
+
+    return () => {
+      // Clean up when the component is unmounted
+      wrapElement.removeChild(imgElement);
+      wrapElementPre.removeChild(imgElementPre);
+      // Stop the camera when the component is unmounted
+      // fetch("http://127.0.0.1:5000/stop");
+    };
+  }, [location]);
+
   return (
     <Wrap>
       <div className="text">
@@ -9,7 +40,7 @@ const VideoSelect = () => {
       </div>
       <div className="videoWrap">
         <div className="preVideoWrap">
-          <div className="preVideo">여기에 이전 비디오</div>
+          <div className="preVideo"></div>
         </div>
         <div className="convertedVideoWrap">
           <div className="convertedVideo1Bx">
@@ -17,7 +48,7 @@ const VideoSelect = () => {
             <span className="convertedText1">옅음</span>
           </div>
           <div className="convertedVideo2Bx">
-            <div className="convertedVideo2">비디오2</div>
+            <div className="convertedVideo2"></div>
             <span className="convertedText2">중간</span>
           </div>
           <div className="convertedVideo3Bx">
