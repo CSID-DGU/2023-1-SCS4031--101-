@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import Logo from "../../assets/Logo.png";
 
@@ -6,16 +6,18 @@ const Header = () => {
   let marker = document.querySelector("#marker");
   let item = document.querySelectorAll("nav a");
 
-  function indicator(e) {
-    marker.style.left = e.offsetLeft + "px";
-    marker.style.width = e.offsetWidth + "px";
-  }
+  useEffect(() => {
+    function indicator(e) {
+      marker.style.left = e.offsetLeft + "px";
+      marker.style.width = e.offsetWidth + "px";
+    }
 
-  item.forEach((link) => {
-    link.addEventListener("click", (e) => {
-      indicator(e.target);
+    item.forEach((link) => {
+      link.addEventListener("click", (e) => {
+        indicator(e.target);
+      });
     });
-  });
+  }, []);
 
   return (
     <Wrap>

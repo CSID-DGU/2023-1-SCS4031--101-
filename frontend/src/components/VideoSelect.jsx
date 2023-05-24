@@ -25,6 +25,15 @@ const VideoSelect = () => {
     const wrapElement2 = document.querySelector(".convertedVideo1");
     wrapElement2.appendChild(imgElement2);
 
+    const imgElement3 = document.createElement("img");
+    imgElement3.src = "http://127.0.0.1:5000/afteropencv3";
+    imgElement3.alt = "ERROR";
+    imgElement3.style.width = "100%";
+    imgElement3.style.height = "100%";
+    imgElement3.style.objectFit = "cover";
+    const wrapElement3 = document.querySelector(".convertedVideo3");
+    wrapElement3.appendChild(imgElement3);
+
     const imgElementPre = document.createElement("img");
     imgElementPre.src = "http://127.0.0.1:5000/beforeopencv";
     imgElementPre.alt = "ERROR";
@@ -37,6 +46,7 @@ const VideoSelect = () => {
     return () => {
       wrapElement.removeChild(imgElement);
       wrapElement2.removeChild(imgElement2);
+      wrapElement3.removeChild(imgElement3);
       wrapElementPre.removeChild(imgElementPre);
       // Stop the camera when the component is unmounted
       // fetch("http://127.0.0.1:5000/stop");
@@ -62,7 +72,7 @@ const VideoSelect = () => {
             <span className="convertedText2">중간</span>
           </div>
           <div className="convertedVideo3Bx">
-            <div className="convertedVideo3">비디오3</div>
+            <div className="convertedVideo3" />
             <span className="convertedText3">진함</span>
           </div>
         </div>
@@ -173,6 +183,7 @@ const Wrap = styled.div`
           cursor: pointer;
           border: 1px solid black;
           width: 70%;
+          height: 100%;
         }
 
         .convertedText3 {
