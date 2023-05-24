@@ -68,7 +68,7 @@ const Wrap = styled.div`
 
       .homeBtn {
         cursor: pointer;
-        width: 100%;
+        width: 8 0%;
         height: 100%;
         margin-left: 20px;
       }
@@ -85,7 +85,7 @@ const Wrap = styled.div`
       .text1 {
         color: white;
         font-size: 4.5em;
-        margin-bottom: 20px;
+        margin-bottom: 40px;
         border-right: 5px solid;
         width: 100%;
         white-space: nowrap;
