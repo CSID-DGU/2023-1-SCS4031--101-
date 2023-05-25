@@ -51,6 +51,44 @@ def ao_response_video():
     return Response(ao_gen_frames(r1, r2, r3, r4, c1, c2, s1, s2),
                     mimetype="multipart/x-mixed-replace; boundary=frame")
 
+@application.route("/afteropencv2")
+def ao_response_video2():
+    r1 = int(request.args.get('r1', 0)) * 3
+    r2 = int(request.args.get('r2', 0)) * 3
+    r3 = int(request.args.get('r3', 0)) * 3
+    r4 = int(request.args.get('r4', 0)) * 3
+    c1 = int(request.args.get('c1', 0)) * 3
+    c2 = int(request.args.get('c2', 0)) * 3
+    s1 = int(request.args.get('s1', 1.0)) * 3
+    s2 = int(request.args.get('s2', 1.0)) * 3
+    print(f'r1: {r1}, r2: {r2}, r3: {r3}, r4: {r4}, c1: {c1}, c2: {c2}, s1: {s1}, s2: {s2}')
+
+    # Ensure the received saturation values are in the correct range
+    s1 = np.clip(s1, 0, 255)
+    s2 = np.clip(s2, 0, 255)
+
+    return Response(ao_gen_frames(r1, r2, r3, r4, c1, c2, s1, s2),
+                    mimetype="multipart/x-mixed-replace; boundary=frame")
+
+@application.route("/afteropencv3")
+def ao_response_video3():
+    r1 = int(request.args.get('r1', 0)) * 1.5
+    r2 = int(request.args.get('r2', 0)) * 1.5
+    r3 = int(request.args.get('r3', 0)) * 1.5
+    r4 = int(request.args.get('r4', 0)) * 1.5
+    c1 = int(request.args.get('c1', 0)) * 1.5 
+    c2 = int(request.args.get('c2', 0)) * 1.5
+    s1 = int(request.args.get('s1', 1.0)) * 1.5
+    s2 = int(request.args.get('s2', 1.0)) * 1.5
+    print(f'r1: {r1}, r2: {r2}, r3: {r3}, r4: {r4}, c1: {c1}, c2: {c2}, s1: {s1}, s2: {s2}')
+
+    # Ensure the received saturation values are in the correct range
+    s1 = np.clip(s1, 0, 255)
+    s2 = np.clip(s2, 0, 255)
+
+    return Response(ao_gen_frames(r1, r2, r3, r4, c1, c2, s1, s2),
+                    mimetype="multipart/x-mixed-replace; boundary=frame")             
+
 def ao_color_filter(img, r1, r2, r3, r4, c1, c2, s1, s2):
     hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 
