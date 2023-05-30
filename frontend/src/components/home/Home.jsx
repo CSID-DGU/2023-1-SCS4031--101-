@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Header from "./Header";
 import BoardImg from "../../assets/HomeBoard.png";
 import ConvertImg from "../../assets/ConvertImg.png";
+import Typing from "react-typing-animation";
 
 const Home = () => {
   return (
@@ -12,8 +13,12 @@ const Home = () => {
         <img src={BoardImg} />
         <div className="textWrap">
           <div className="textBx1">
-            <div>색각 이상자를 위한</div>
-            <div>비디오 변환 서비스입니다</div>
+            {/* <Typing>
+              <div>
+                <div className="text1">색각 이상자를 위한</div>
+              </div>
+              <div className="text2">비디오 변환 서비스입니다</div>
+            </Typing> */}
           </div>
           <div className="textBx2">
             빠르게 실시간으로 비디오를 변환해 보세요!
@@ -65,8 +70,61 @@ const Wrap = styled.div`
 
       .textBx1 {
         color: #ff14b1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         text-align: center;
         font-size: 5.5rem; // 미디어 쿼리로 나중에 폰트 사이즈 변경하기
+
+        .text1 {
+          display: inline-block;
+          border-right: 5px solid;
+          white-space: nowrap;
+          overflow: hidden;
+          width: 100%;
+          animation: typing 2s steps(8), cursor 0.4s step-end infinite alternate,
+            hideCursor 0.5s 2s step-end forwards;
+        }
+
+        .text2 {
+          display: inline-block;
+          border-right: 5px solid;
+          white-space: nowrap;
+          overflow: hidden;
+          width: 100%;
+          visibility: hidden;
+          animation: typing 2s steps(8) 2s forwards,
+            cursor 0.4s step-end infinite alternate 2s,
+            cursor 0.4s step-end infinite alternate 2s,
+            visibility 0s linear 2s forwards;
+        }
+
+        /* @keyframes typing {
+          from {
+            width: 0;
+          }
+        }
+
+        @keyframes cursor {
+          50% {
+            border-color: transparent;
+          }
+        }
+
+        @keyframes hideCursor {
+          to {
+            border-color: transparent;
+          }
+        }
+
+        @keyframes visibility {
+          from {
+            visibility: hidden;
+          }
+          to {
+            visibility: visible;
+          }
+        } */
       }
 
       .textBx2 {

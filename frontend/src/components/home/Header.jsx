@@ -77,7 +77,7 @@ const Wrap = styled.div`
       cursor: pointer;
       position: relative;
       margin: 0 20px;
-      font-size: 2em;
+      font-size: 2.5em;
       color: #fff;
       text-decoration: none;
     }

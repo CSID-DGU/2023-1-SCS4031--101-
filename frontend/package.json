@@ -18,6 +18,7 @@
     "react-ionicons": "^4.2.0",
     "react-router-dom": "^6.11.0",
     "react-transition-group": "^4.4.5",
+    "react-typing-animation": "^1.6.2",
     "styled-components": "^5.3.10",
     "styled-reset": "^4.4.6",
     "zustand": "^4.3.7"
