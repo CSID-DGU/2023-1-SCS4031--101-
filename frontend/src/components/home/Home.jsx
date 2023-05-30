@@ -3,7 +3,8 @@ import styled from "styled-components";
 import Header from "./Header";
 import BoardImg from "../../assets/HomeBoard.png";
 import ConvertImg from "../../assets/ConvertImg.png";
-import Typing from "react-typing-animation";
+import Chalk from "../../assets/Chalk.jpg";
+import { TypeAnimation } from "react-type-animation";
 
 const Home = () => {
   return (
@@ -13,12 +14,13 @@ const Home = () => {
         <img src={BoardImg} />
         <div className="textWrap">
           <div className="textBx1">
-            {/* <Typing>
-              <div>
-                <div className="text1">색각 이상자를 위한</div>
-              </div>
-              <div className="text2">비디오 변환 서비스입니다</div>
-            </Typing> */}
+            <TypeAnimation
+              cursor={true}
+              sequence={["색각 이상자를 위한\n비디오 변환 서비스입니다", 5000]}
+              speed={1}
+              wrapper="pre"
+              repeat
+            ></TypeAnimation>
           </div>
           <div className="textBx2">
             빠르게 실시간으로 비디오를 변환해 보세요!
@@ -31,6 +33,11 @@ const Home = () => {
           </div>
         </div>
       </div>
+      <div className="spacer">
+        <div className="chalk">
+          <img src={Chalk} />
+        </div>
+      </div>
     </Wrap>
   );
 };
@@ -40,12 +47,12 @@ export default Home;
 const Wrap = styled.div`
   margin: 0;
   padding: 0;
-  min-height: 100vh;
+  height: 3500px;
   background: linear-gradient(to bottom, #f04a4a, #a326f0);
   font-family: "Jua", sans-serif;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: end;
   align-items: center;
 
   .boardBx {
@@ -75,56 +82,6 @@ const Wrap = styled.div`
         align-items: center;
         text-align: center;
         font-size: 5.5rem; // 미디어 쿼리로 나중에 폰트 사이즈 변경하기
-
-        .text1 {
-          display: inline-block;
-          border-right: 5px solid;
-          white-space: nowrap;
-          overflow: hidden;
-          width: 100%;
-          animation: typing 2s steps(8), cursor 0.4s step-end infinite alternate,
-            hideCursor 0.5s 2s step-end forwards;
-        }
-
-        .text2 {
-          display: inline-block;
-          border-right: 5px solid;
-          white-space: nowrap;
-          overflow: hidden;
-          width: 100%;
-          visibility: hidden;
-          animation: typing 2s steps(8) 2s forwards,
-            cursor 0.4s step-end infinite alternate 2s,
-            cursor 0.4s step-end infinite alternate 2s,
-            visibility 0s linear 2s forwards;
-        }
-
-        /* @keyframes typing {
-          from {
-            width: 0;
-          }
-        }
-
-        @keyframes cursor {
-          50% {
-            border-color: transparent;
-          }
-        }
-
-        @keyframes hideCursor {
-          to {
-            border-color: transparent;
-          }
-        }
-
-        @keyframes visibility {
-          from {
-            visibility: hidden;
-          }
-          to {
-            visibility: visible;
-          }
-        } */
       }
 
       .textBx2 {
@@ -156,6 +113,33 @@ const Wrap = styled.div`
             width: 100%;
           }
         }
+      }
+    }
+  }
+
+  .spacer {
+    flex-grow: 1;
+    position: relative;
+    width: 100vw;
+    background: #fff;
+
+    .chalk {
+      position: relative;
+      width: 100vw;
+
+      &::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 100px;
+        background: linear-gradient(to top, #fff, transparent);
+        z-index: 10000;
+      }
+
+      img {
+        width: 100%;
+        /* filter: blur(3px); */
       }
     }
   }

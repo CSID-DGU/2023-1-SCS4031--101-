@@ -4,17 +4,17 @@ html {
   height: 100%;
   margin: 0;
   padding: 0;
-  overflow: hidden;
+  overflow: auto;
   background: linear-gradient(to bottom, #f04a4a, #a326f0);
 }
 
 body {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+  scrollbar-width: auto;
+  -ms-overflow-style: auto;
 }
 
 body::-webkit-scrollbar {
-  display: none;
+  display: auto;
 }
 
 .app-wrapper {
