@@ -1,12 +1,26 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Logo from "../../assets/Logo.png";
 
 const Header = () => {
-  let marker = document.querySelector("#marker");
-  let item = document.querySelectorAll("nav a");
+  const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.pageYOffset;
+      setScrollY(scrollPosition);
+      console.log("Scroll Position: ", scrollPosition);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    let marker = document.querySelector("#marker");
+    let item = document.querySelectorAll("nav a");
+
     function indicator(e) {
       marker.style.left = e.offsetLeft + "px";
       marker.style.width = e.offsetWidth + "px";
@@ -20,7 +34,7 @@ const Header = () => {
   }, []);
 
   return (
-    <Wrap>
+    <Wrap scrollY={scrollY}>
       <div className="headerWrap">
         <div className="leftWrap">
           <div className="logoBx">
@@ -41,8 +55,15 @@ const Header = () => {
 export default Header;
 
 const Wrap = styled.div`
-  margin-top: 20px;
   color: #fff;
+  z-index: 100005;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  background-color: ${(props) => (props.scrollY > 1 ? "black" : "transparent")};
+  transition: 0.5s;
 
   .headerWrap {
     width: 100vw;
@@ -77,9 +98,15 @@ const Wrap = styled.div`
       cursor: pointer;
       position: relative;
       margin: 0 20px;
-      font-size: 2em;
+      font-size: 2.5em;
       color: #fff;
       text-decoration: none;
+    }
+
+    nav > a:nth-child(4) {
+      padding: 10px 20px;
+      background: rgba(255, 239, 0, 0.8);
+      border-radius: 20px;
     }
 
     nav #marker {

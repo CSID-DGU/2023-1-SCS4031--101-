@@ -28,7 +28,7 @@ const Wrap = styled.div`
     background: #fff;
     position: absolute;
     inset: 100px 250px;
-    border-radius: 40px;
+    border-radius: 60px;
     display: flex;
     flex-direction: column;
     justify-content: center;
