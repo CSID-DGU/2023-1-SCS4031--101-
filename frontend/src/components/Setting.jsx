@@ -5,8 +5,8 @@ import preBtn from "../assets/preBtn.png";
 import nextBtn from "../assets/nextBtn.png";
 
 export default function Setting() {
-  const [saturation1, setSaturation1] = useState(127);
-  const [saturation2, setSaturation2] = useState(127);
+  const [saturation1, setSaturation1] = useState(1);
+  const [saturation2, setSaturation2] = useState(1);
   const canvasRef = useRef(null);
 
   const red1 = 0;
@@ -17,7 +17,7 @@ export default function Setting() {
   const cyan2 = 230; // 240?
 
   const generateUrl = () => {
-    const url = `/videoSelect?r1=${red1}&r2=${red2}&r3=${red3}&r4=${red4}&c1=${cyan1}&c2=${cyan2}&s1=${saturation1}&s2=${saturation2}`;
+    const url = `/videoselect?r1=${red1}&r2=${red2}&r3=${red3}&r4=${red4}&c1=${cyan1}&c2=${cyan2}&s1=${saturation1}&s2=${saturation2}`;
     return encodeURI(url);
   };
 
@@ -66,9 +66,9 @@ export default function Setting() {
         s = max === 0 ? 0 : diff / max;
 
         if ((h >= red1 && h <= red2) || (h >= red3 && h <= red4)) {
-          s *= saturation1 / 100;
+          s *= saturation1;
         } else if (h >= cyan1 && h <= cyan2) {
-          s *= saturation2 / 100;
+          s *= saturation2;
         }
 
         // Convert HSV back to RGB
@@ -139,8 +139,8 @@ export default function Setting() {
             <input
               type="range"
               className="range1"
-              min="0"
-              max="255"
+              min="1"
+              max="10"
               value={saturation1}
               onChange={updateSaturation1}
             />
@@ -153,8 +153,8 @@ export default function Setting() {
             <input
               type="range"
               className="range2"
-              min="0"
-              max="255"
+              min="1"
+              max="10"
               value={saturation2}
               onChange={updateSaturation2}
             />
