@@ -6,7 +6,6 @@ import SettingPage from "../pages/SettingPage";
 import HomePage from "../pages/HomePage";
 import VideoSelectPage from "../pages/VideoSelectPage";
 import VideoPage from "../pages/VideoPage";
-import NaviagationBar from "../components/Navigation/NavigationBar";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import "./transition.css";
 

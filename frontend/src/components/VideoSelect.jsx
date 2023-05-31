@@ -12,8 +12,27 @@ const VideoSelect = () => {
     imgElement.style.width = "100%";
     imgElement.style.height = "100%";
     imgElement.style.objectFit = "cover";
+    imgElement.style.border = "3px solid red";
     const wrapElement = document.querySelector(".convertedVideo2");
     wrapElement.appendChild(imgElement);
+
+    const imgElement2 = document.createElement("img");
+    imgElement2.src = "http://127.0.0.1:5000/afteropencv2";
+    imgElement2.alt = "ERROR";
+    imgElement2.style.width = "100%";
+    imgElement2.style.height = "100%";
+    imgElement2.style.objectFit = "cover";
+    const wrapElement2 = document.querySelector(".convertedVideo1");
+    wrapElement2.appendChild(imgElement2);
+
+    const imgElement3 = document.createElement("img");
+    imgElement3.src = "http://127.0.0.1:5000/afteropencv3";
+    imgElement3.alt = "ERROR";
+    imgElement3.style.width = "100%";
+    imgElement3.style.height = "100%";
+    imgElement3.style.objectFit = "cover";
+    const wrapElement3 = document.querySelector(".convertedVideo3");
+    wrapElement3.appendChild(imgElement3);
 
     const imgElementPre = document.createElement("img");
     imgElementPre.src = "http://127.0.0.1:5000/beforeopencv";
@@ -25,8 +44,9 @@ const VideoSelect = () => {
     wrapElementPre.appendChild(imgElementPre);
 
     return () => {
-      // Clean up when the component is unmounted
       wrapElement.removeChild(imgElement);
+      wrapElement2.removeChild(imgElement2);
+      wrapElement3.removeChild(imgElement3);
       wrapElementPre.removeChild(imgElementPre);
       // Stop the camera when the component is unmounted
       // fetch("http://127.0.0.1:5000/stop");
@@ -44,15 +64,15 @@ const VideoSelect = () => {
         </div>
         <div className="convertedVideoWrap">
           <div className="convertedVideo1Bx">
-            <div className="convertedVideo1">비디오1</div>
+            <div className="convertedVideo1" />
             <span className="convertedText1">옅음</span>
           </div>
           <div className="convertedVideo2Bx">
-            <div className="convertedVideo2"></div>
+            <div className="convertedVideo2" />
             <span className="convertedText2">중간</span>
           </div>
           <div className="convertedVideo3Bx">
-            <div className="convertedVideo3">비디오3</div>
+            <div className="convertedVideo3" />
             <span className="convertedText3">진함</span>
           </div>
         </div>
@@ -100,24 +120,28 @@ const Wrap = styled.div`
       .preVideo {
         border: 1px solid white;
         width: 100%;
-        height: 70%;
+        height: 50vh;
       }
     }
 
     .convertedVideoWrap {
       border: 1px solid green;
       flex: 1.3;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
 
       .convertedVideo1Bx {
         border: 1px solid white;
         display: flex;
         justify-content: space-evenly;
-        height: 33%;
+        height: 25vh;
 
         .convertedVideo1 {
           cursor: pointer;
           border: 1px solid black;
           width: 70%;
+          height: 100%;
         }
 
         .convertedText1 {
@@ -132,12 +156,13 @@ const Wrap = styled.div`
         border: 1px solid white;
         display: flex;
         justify-content: space-evenly;
-        height: 33%;
+        height: 25vh;
 
         .convertedVideo2 {
           cursor: pointer;
           border: 1px solid black;
           width: 70%;
+          height: 100%;
         }
 
         .convertedText2 {
@@ -152,12 +177,13 @@ const Wrap = styled.div`
         border: 1px solid white;
         display: flex;
         justify-content: space-evenly;
-        height: 33%;
+        height: 25vh;
 
         .convertedVideo3 {
           cursor: pointer;
           border: 1px solid black;
           width: 70%;
+          height: 100%;
         }
 
         .convertedText3 {
