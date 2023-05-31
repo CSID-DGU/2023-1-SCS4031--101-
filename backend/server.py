@@ -133,6 +133,8 @@ def aou_response_video():
                     mimetype="multipart/x-mixed-replace; boundary=frame")
 
 def aou_color_filter(img, r1, r2, r3, r4, c1, c2, s1, s2):
+    """
+    """
     hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 
     # Convert HSV range from (0-180, 0-255, 0-255) to (0-360, 0-100, 0-100)
@@ -168,6 +170,28 @@ def aou_color_filter(img, r1, r2, r3, r4, c1, c2, s1, s2):
     # hsv[..., 0] = hsv[..., 0] / 2  # it was hsv[0] / 2
 
     return cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
+
+    """
+    hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+    
+    lower_red1, upper_red1, lower_red2, upper_red2 = h_range
+    
+    mask1 = cv2.inRange(hsv, lower_red1, upper_red1)
+    mask2 = cv2.inRange(hsv, lower_red2, upper_red2)
+    mask = cv2.bitwise_or(mask1, mask2)
+    
+    hsv[:, :, 1] = np.where(mask == 255, np.clip(hsv[:, :, 1] * 2, 0, 255), hsv[:, :, 1])
+    # # S값 변환: 기존 S값에 2배를 하고, 255를 초과하지 않도록 np.clip() 함수로 범위 조정
+    return cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
+
+# 핑크색에 가까운 빨간색 범위 설정
+h_range = (
+    np.array([145, 5, 0]),   
+    np.array([179, 255, 255]),
+    np.array([0, 5, 0]),     
+    np.array([40, 255, 255])
+)
+    """
 
 def aou_gen_frames(r1, r2, r3, r4, c1, c2, s1, s2):
     global capture
