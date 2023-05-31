@@ -6,34 +6,6 @@ const VideoSelect = () => {
   const location = useLocation();
 
   useEffect(() => {
-    const imgElement = document.createElement("img");
-    imgElement.src = "http://127.0.0.1:5000/afteropencv";
-    imgElement.alt = "ERROR";
-    imgElement.style.width = "100%";
-    imgElement.style.height = "100%";
-    imgElement.style.objectFit = "cover";
-    imgElement.style.border = "3px solid red";
-    const wrapElement = document.querySelector(".convertedVideo2");
-    wrapElement.appendChild(imgElement);
-
-    const imgElement2 = document.createElement("img");
-    imgElement2.src = "http://127.0.0.1:5000/afteropencv2";
-    imgElement2.alt = "ERROR";
-    imgElement2.style.width = "100%";
-    imgElement2.style.height = "100%";
-    imgElement2.style.objectFit = "cover";
-    const wrapElement2 = document.querySelector(".convertedVideo1");
-    wrapElement2.appendChild(imgElement2);
-
-    const imgElement3 = document.createElement("img");
-    imgElement3.src = "http://127.0.0.1:5000/afteropencv3";
-    imgElement3.alt = "ERROR";
-    imgElement3.style.width = "100%";
-    imgElement3.style.height = "100%";
-    imgElement3.style.objectFit = "cover";
-    const wrapElement3 = document.querySelector(".convertedVideo3");
-    wrapElement3.appendChild(imgElement3);
-
     const imgElementPre = document.createElement("img");
     imgElementPre.src = "http://127.0.0.1:5000/beforeopencv";
     imgElementPre.alt = "ERROR";
@@ -42,6 +14,34 @@ const VideoSelect = () => {
     imgElementPre.style.objectFit = "cover";
     const wrapElementPre = document.querySelector(".preVideo");
     wrapElementPre.appendChild(imgElementPre);
+
+    const imgElement = document.createElement("img");
+    imgElement.src = "http://127.0.0.1:5000/afteropencv_weak";
+    imgElement.alt = "ERROR";
+    imgElement.style.width = "100%";
+    imgElement.style.height = "100%";
+    imgElement.style.objectFit = "cover";
+    const wrapElement = document.querySelector(".convertedVideo1");
+    wrapElement.appendChild(imgElement);
+
+    const imgElement2 = document.createElement("img");
+    imgElement2.src = "http://127.0.0.1:5000/afteropencv_user";
+    imgElement2.alt = "ERROR";
+    imgElement2.style.width = "100%";
+    imgElement2.style.height = "100%";
+    imgElement2.style.objectFit = "cover";
+    // imgElement.style.border = "3px solid red";
+    const wrapElement2 = document.querySelector(".convertedVideo2");
+    wrapElement2.appendChild(imgElement2);
+
+    const imgElement3 = document.createElement("img");
+    imgElement3.src = "http://127.0.0.1:5000/afteropencv_strong";
+    imgElement3.alt = "ERROR";
+    imgElement3.style.width = "100%";
+    imgElement3.style.height = "100%";
+    imgElement3.style.objectFit = "cover";
+    const wrapElement3 = document.querySelector(".convertedVideo3");
+    wrapElement3.appendChild(imgElement3);
 
     return () => {
       wrapElement.removeChild(imgElement);
@@ -69,7 +69,7 @@ const VideoSelect = () => {
           </div>
           <div className="convertedVideo2Bx">
             <div className="convertedVideo2" />
-            <span className="convertedText2">중간</span>
+            <span className="convertedText2">유저</span>
           </div>
           <div className="convertedVideo3Bx">
             <div className="convertedVideo3" />

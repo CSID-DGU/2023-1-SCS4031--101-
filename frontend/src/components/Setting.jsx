@@ -17,7 +17,7 @@ export default function Setting() {
   const cyan2 = 230; // 240?
 
   const generateUrl = () => {
-    const url = `/videoSelect?r1=${red1}&r2=${red2}&r3=${red3}&r4=${red4}&c1=${cyan1}&c2=${cyan2}&s1=${saturation1}&s2=${saturation2}`;
+    const url = `/videoselect?r1=${red1}&r2=${red2}&r3=${red3}&r4=${red4}&c1=${cyan1}&c2=${cyan2}&s1=${saturation1}&s2=${saturation2}`;
     return encodeURI(url);
   };
 
