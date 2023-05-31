@@ -34,19 +34,19 @@ def bo_gen_frames():
 
 @application.route("/afteropencv")
 def ao_response_video():
-    r1 = int(request.args.get('r1', 0))
-    r2 = int(request.args.get('r2', 0))
-    r3 = int(request.args.get('r3', 0))
-    r4 = int(request.args.get('r4', 0))
-    c1 = int(request.args.get('c1', 0))
-    c2 = int(request.args.get('c2', 0))
-    s1 = int(request.args.get('s1', 1.0))
-    s2 = int(request.args.get('s2', 1.0))
+    r1 = float(request.args.get('r1', 0)) / 2
+    r2 = float(request.args.get('r2', 0)) / 2
+    r3 = float(request.args.get('r3', 0)) / 2
+    r4 = float(request.args.get('r4', 0)) / 2
+    c1 = float(request.args.get('c1', 0)) / 2
+    c2 = float(request.args.get('c2', 0)) / 2
+    s1 = float(request.args.get('s1', 1.0)) * 2.55
+    s2 = float(request.args.get('s2', 1.0)) * 2.55
     print(f'r1: {r1}, r2: {r2}, r3: {r3}, r4: {r4}, c1: {c1}, c2: {c2}, s1: {s1}, s2: {s2}')
 
     # Ensure the received saturation values are in the correct range
-    s1 = np.clip(s1, 0, 255)
-    s2 = np.clip(s2, 0, 255)
+    # s1 = np.clip(s1, 0, 100) * 2.55
+    # s2 = np.clip(s2, 0, 100) * 2.55
 
     return Response(ao_gen_frames(r1, r2, r3, r4, c1, c2, s1, s2),
                     mimetype="multipart/x-mixed-replace; boundary=frame")
@@ -66,8 +66,8 @@ def ao_color_filter(img, r1, r2, r3, r4, c1, c2, s1, s2):
     mask_red1 = cv2.inRange(hsv, lower_red1, upper_red1)
     mask_red2 = cv2.inRange(hsv, lower_red2, upper_red2)
 
-    hsv[mask_red1 == 255, 1] = np.clip(hsv[mask_red1 == 255, 1] * s1 / 100, 0, 100)
-    hsv[mask_red2 == 255, 1] = np.clip(hsv[mask_red2 == 255, 1] * s1 / 100, 0, 100)
+    hsv[mask_red1 == 255, 1] = np.clip(hsv[mask_red1 == 255, 1] * s1 / 255, 0, 100)
+    hsv[mask_red2 == 255, 1] = np.clip(hsv[mask_red2 == 255, 1] * s1 / 255, 0, 100)
 
     lower_cyan = np.array([c1, 0, 0])
     upper_cyan = np.array([c2, 100, 100])

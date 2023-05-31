@@ -5,8 +5,8 @@ import preBtn from "../assets/preBtn.png";
 import nextBtn from "../assets/nextBtn.png";
 
 export default function Setting() {
-  const [saturation1, setSaturation1] = useState(127);
-  const [saturation2, setSaturation2] = useState(127);
+  const [saturation1, setSaturation1] = useState(1);
+  const [saturation2, setSaturation2] = useState(1);
   const canvasRef = useRef(null);
 
   const red1 = 0;
@@ -66,9 +66,9 @@ export default function Setting() {
         s = max === 0 ? 0 : diff / max;
 
         if ((h >= red1 && h <= red2) || (h >= red3 && h <= red4)) {
-          s *= saturation1 / 100;
+          s *= saturation1;
         } else if (h >= cyan1 && h <= cyan2) {
-          s *= saturation2 / 100;
+          s *= saturation2;
         }
 
         // Convert HSV back to RGB
@@ -139,8 +139,8 @@ export default function Setting() {
             <input
               type="range"
               className="range1"
-              min="0"
-              max="255"
+              min="1"
+              max="10"
               value={saturation1}
               onChange={updateSaturation1}
             />
@@ -153,8 +153,8 @@ export default function Setting() {
             <input
               type="range"
               className="range2"
-              min="0"
-              max="255"
+              min="1"
+              max="10"
               value={saturation2}
               onChange={updateSaturation2}
             />
