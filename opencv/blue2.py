@@ -7,15 +7,17 @@ def adjust_saturation(img, h_range):
     lower_hsv, upper_hsv = h_range
 
     mask = cv2.inRange(hsv, lower_hsv, upper_hsv)
+    cv2.imshow("mask", mask)  # 마스크 확인
 
-    # S값 변경: 기존 S값을 2배로 상승 (255를 초과하지 않도록 np.clip() 함수로 범위 조정)
-    hsv[:, :, 1] = np.where(mask == 255, np.clip(hsv[:, :, 1] * 2, 0, 255), hsv[:, :, 1])
+    hsv[:, :, 1] = np.where(mask == 255, hsv[:, :, 1], hsv[:, :, 1] * 2)
+    hsv[:, :, 1] = np.clip(hsv[:, :, 1], 0, 255)  # S값 범위를 0~255로 제한
+
     return cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
 
-# 청록색 범위 설정
+# 청록색 범위 설정 (H값 범위를 넓게 조절)
 h_range = (
-    np.array([80, 0, 0]),  # 청록색 범위의 시작(HSV)
-    np.array([100, 255, 255])  # 청록색 범위의 끝(HSV)
+    np.array([85, 0, 0]),  # 청록색 범위의 시작(HSV)
+    np.array([115, 255, 255])  # 청록색 범위의 끝(HSV)
 )
 
 capture = cv2.VideoCapture(0)
@@ -26,7 +28,7 @@ while True:
     ret, frame = capture.read()
     cv2.imshow("original", frame)
 
-    adjusted = adjust_saturation(frame, h_range) # 원본 영상에서 청록색 영역의 S값을 2배로 상승
+    adjusted = adjust_saturation(frame, h_range) # 원본 영상에서 청록색 영역의 S값을 2배로 높임
     cv2.imshow("adjusted", adjusted)
 
     if cv2.waitKey(1) == ord('q'):
