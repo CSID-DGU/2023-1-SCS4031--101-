@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import styled from "styled-components";
 import Header from "./Header";
+import Ask from "./Ask";
 import BoardImg from "../../assets/HomeBoard.png";
 import ConvertImg from "../../assets/ConvertImg.png";
 import Chalk from "../../assets/Chalk.jpg";
@@ -131,6 +132,7 @@ const Home = () => {
           <div className="centerImg_text">동영상을 알맞게 변환하세요</div>
         </div>
       </div>
+      <Ask />
     </Wrap>
   );
 };
@@ -212,6 +214,11 @@ const Wrap = styled.div`
   }
 
   .spacer {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: stretch;
+    /* border: 5px solid green; */
     flex-grow: 1;
     position: relative;
     width: 100%;
@@ -336,7 +343,7 @@ const Wrap = styled.div`
   .box2 {
     margin-top: 50px;
     border: 1px dashed red;
-    height: 1700px;
+    height: 2100px;
 
     .box2_wrap {
       border: 1px solid blue;
@@ -381,7 +388,8 @@ const Wrap = styled.div`
   }
 
   .centerImg {
-    height: 600px;
+    /* border: 3px solid red; */
+    height: 700px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -391,6 +399,7 @@ const Wrap = styled.div`
     background-repeat: no-repeat;
     background-position: center;
     position: relative;
+    margin-top: auto;
 
     &::before {
       content: "";
@@ -399,7 +408,7 @@ const Wrap = styled.div`
       right: 0;
       bottom: 0;
       left: 0;
-      background-color: rgba(0, 0, 0, 0.3);
+      background-color: rgba(0, 0, 0, 0.4);
     }
 
     img {
