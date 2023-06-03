@@ -7,6 +7,7 @@ import ConvertImg from "../../assets/ConvertImg.png";
 import Chalk from "../../assets/Chalk.jpg";
 import Original from "../../assets/Original.jpg";
 import NotOriginal from "../../assets/NotOriginal.jpg";
+import Triangle from "../../assets/Triangle.png";
 import Logo from "../../assets/Logo.png";
 import { TypeAnimation } from "react-type-animation";
 
@@ -32,6 +33,11 @@ const Home = () => {
       }
     );
 
+    const box2Element = document.querySelector(".box2");
+    if (box2Element) {
+      observer.observe(box2Element);
+    }
+
     if (notOriginalImgRef.current) {
       observer.observe(notOriginalImgRef.current);
     }
@@ -48,6 +54,10 @@ const Home = () => {
 
       if (originalImgRef.current) {
         observer.unobserve(originalImgRef.current);
+      }
+
+      if (box2Element) {
+        observer.unobserve(box2Element);
       }
     };
   }, []);
@@ -87,11 +97,15 @@ const Home = () => {
             <div className="introBx">
               <div className="whatIsText">일영일이란??</div>
               <div className="whatIsTextContent">
-                일영일은 적녹색각이상자를 위한 강의 보조 서비스입니다.
+                일영일은 색각 이상이 있는 사용자도 교육 환경에 편리하게
                 <br />
-                동영상의 HSV값을 이용하여 사용자의 색 구분을 도와줘
+                참여 할 수 있게 도와주는 웹 서비스입니다.
                 <br />
-                판서를 쉽게 인식할 수 있도록 동영상을 변환합니다.
+                수업이나 강의 자료를 더욱 편리하게 이해하고 사용할 수 있도록,
+                <br />
+                저희는 HSV(색상, 채도, 명도) 값을 조정하여
+                <br />
+                실시간 영상을 재구성하고 있습니다.
               </div>
             </div>
             <div className="colorImgWrap">
@@ -109,21 +123,25 @@ const Home = () => {
         <div className="box2">
           <div className="box2_wrap">
             <div className="box2_wrap_textWrap">
-              <div className="box2_text_title">어떻게 변환하나요??</div>
               <div className="box2_text_content">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero,
-                saepe. Possimus corporis quod qui repudiandae blanditiis
-                laudantium eius. Libero, cum blanditiis amet pariatur dolores
-                quasi rem qui odio assumenda atque. Lorem ipsum dolor sit amet
-                consectetur adipisicing elit. Unde officia tenetur nisi ducimus
-                eveniet expedita incidunt amet maxime. Officia, sed! Voluptatum
-                atque modi corrupti sint voluptatem distinctio harum cumque
-                saepe.
+                <div className="box2_content1">
+                  일영일은 RGB 컬러 모델에서 한 단계 더 나아가,
+                  <br />
+                  HSV를 조절한 영상을 제공함으로써,
+                </div>
+                <div className="box2_content2">
+                  일반적으로 보기 어려운 색상이나 글자도 눈에 띄게 만들어,
+                  <br />
+                  색각 이상이 있는 사용자가 더욱 풍부한 시각 정보를 받을 수 있는
+                  <br />
+                  새로운 시각적 경험을 제공합니다.
+                </div>
               </div>
             </div>
-            <div className="box2_imgWrap">
-              <div className="box2_imgBX1"></div>
-              <div className="box2_imgBX2s"></div>
+            <div className="box2_img_wrap">
+              <div className="box2_img_bx">
+                <img src={Triangle} />
+              </div>
             </div>
           </div>
         </div>
@@ -142,7 +160,7 @@ export default Home;
 const Wrap = styled.div`
   margin: 0;
   padding: 0;
-  height: 6500px;
+  height: 7500px;
   background: linear-gradient(to bottom, #f04a4a, #a326f0);
   font-family: "Jua", sans-serif;
   display: flex;
@@ -152,8 +170,9 @@ const Wrap = styled.div`
   box-sizing: border-box;
 
   .boardBx {
+    box-sizing: border-box;
     display: flex;
-    width: 80vw;
+    width: 80%;
     position: relative;
 
     img {
@@ -223,6 +242,7 @@ const Wrap = styled.div`
     position: relative;
     width: 100%;
     background: #fff;
+    box-sizing: border-box;
   }
 
   .chalk {
@@ -343,47 +363,85 @@ const Wrap = styled.div`
   .box2 {
     margin-top: 50px;
     border: 1px dashed red;
-    height: 2100px;
+    height: 2618px;
+    background-color: #fff;
+    transition: background-color 0.5s ease-in-out;
 
     .box2_wrap {
-      border: 1px solid blue;
+      /* border: 1px solid blue; */
       position: sticky;
-      top: 120px;
+      top: 220px;
       display: flex;
-      flex-direction: column;
+      justify-content: space-between;
+      height: 60vh;
 
       .box2_wrap_textWrap {
         display: flex;
-        flex-direction: column;
         align-items: center;
 
-        .box2_text_title {
-          display: inline-flex;
-          justify-content: center;
-          font-size: 5em;
-          background: #ffef00;
-          border-radius: 30px;
-          padding: 10px;
-        }
-
         .box2_text_content {
+          color: #fff;
           margin-top: 50px;
           display: flex;
-          justify-content: center;
-          align-items: center;
-          text-align: center;
+          flex-direction: column;
+          justify-content: start;
+          align-items: start;
           font-size: 2.5em;
+
+          .box2_content1 {
+            line-height: 50px;
+            position: relative;
+            right: 1000px;
+            font-size: 2.5rem;
+            /* border: 1px solid white; */
+            color: #fff;
+          }
+
+          .box2_content2 {
+            line-height: 50px;
+            position: relative;
+            right: 1000px;
+            font-size: 2.5rem;
+            color: #fff;
+          }
         }
       }
 
-      .box2_imgWrap {
-        margin-top: 50px;
-        border: 1px solid green;
-        height: 40vh;
+      .box2_img_wrap {
+        margin-right: 100px;
+        width: 30vw;
+        height: 550px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        /* border: 1px solid yellow; */
 
-        .box2_imgBX1 {
+        .box2_img_bx {
+          width: 400px;
+          height: 400px;
+          animation: rotate 2s linear 1s infinite;
+          /* border: 1px solid green; */
+
+          img {
+            width: 100%;
+            height: 100%;
+          }
         }
       }
+    }
+  }
+
+  .box2.visible {
+    background-color: #000;
+
+    .box2_content1 {
+      animation: slideRight 1s ease-in-out;
+      animation-fill-mode: forwards;
+    }
+
+    .box2_content2 {
+      animation: slideRight 1s 1s ease-in-out;
+      animation-fill-mode: forwards;
     }
   }
 
@@ -421,6 +479,25 @@ const Wrap = styled.div`
       font-size: 3em;
       color: #ffef00;
       margin-top: 20px;
+    }
+  }
+
+  @keyframes slideRight {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(1050px);
+    }
+  }
+
+  @keyframes rotate {
+    from {
+      transform: rotate(0deg);
+    }
+
+    to {
+      transform: rotate(360deg);
     }
   }
 `;
