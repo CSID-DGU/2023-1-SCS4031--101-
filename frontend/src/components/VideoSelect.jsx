@@ -6,6 +6,8 @@ const VideoSelect = () => {
   const location = useLocation();
 
   useEffect(() => {
+    const urlParams = window.location.search;
+
     const imgElementPre = document.createElement("img");
     imgElementPre.src = "http://127.0.0.1:5000/beforeopencv";
     imgElementPre.alt = "ERROR";
@@ -25,7 +27,7 @@ const VideoSelect = () => {
     wrapElement.appendChild(imgElement);
 
     const imgElement2 = document.createElement("img");
-    imgElement2.src = "http://127.0.0.1:5000/afteropencv_user";
+    imgElement2.src = `http://127.0.0.1:5000/afteropencv_user${urlParams}`;
     imgElement2.alt = "ERROR";
     imgElement2.style.width = "100%";
     imgElement2.style.height = "100%";
