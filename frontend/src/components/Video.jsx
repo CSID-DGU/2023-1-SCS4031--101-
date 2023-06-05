@@ -1,7 +1,26 @@
 import styled from "styled-components";
-import React from "react";
+import React, { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 const Video = () => {
+  // const location = useLocation();
+  // const imgURL = location.state.url;
+
+  // useEffect(() => {
+  //   const videoElement = document.querySelector(".videoBx");
+  //   const imgElement = document.createElement("img");
+
+  //   imgElement.src = imgURL;
+  //   imgElement.alt = "변환된 동영상";
+  //   imgElement.style.width = "100%";
+  //   imgElement.style.height = "100%";
+
+  //   videoElement.appendChild(imgElement);
+
+  //   // Cleanup function to remove the image when the component is unmounted
+  //   return () => videoElement.removeChild(imgElement);
+  // }, [imgURL]);
+
   return (
     <Wrap>
       <div className="box">

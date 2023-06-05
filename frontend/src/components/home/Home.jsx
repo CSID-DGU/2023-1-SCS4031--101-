@@ -323,7 +323,7 @@ const Wrap = styled.div`
           position: absolute;
           top: 0;
           left: 0;
-          transition: transform 2s ease-in-out;
+          transition: transform 1s ease-in-out;
           transform: translateY(0);
 
           img {
@@ -332,7 +332,7 @@ const Wrap = styled.div`
         }
 
         .originalImgBx.visible {
-          transform: translateY(-200px);
+          transform: translateY(-160px);
         }
 
         .notOriginalImgBx {
@@ -343,7 +343,7 @@ const Wrap = styled.div`
           position: absolute;
           top: 0;
           left: 0;
-          transition: opacity 2s ease-in-out;
+          transition: opacity 1s ease-in-out;
           opacity: 0;
           transform: translateY(0);
 
@@ -354,7 +354,7 @@ const Wrap = styled.div`
 
         .notOriginalImgBx.visible {
           opacity: 1;
-          transform: translateY(200px);
+          transform: translateY(230px);
         }
       }
     }
@@ -419,6 +419,8 @@ const Wrap = styled.div`
         .box2_img_bx {
           width: 400px;
           height: 400px;
+          opacity: 0;
+          transition: 1s;
           animation: rotate 2s linear 1s infinite;
           /* border: 1px solid green; */
 
@@ -426,6 +428,10 @@ const Wrap = styled.div`
             width: 100%;
             height: 100%;
           }
+        }
+
+        .box2_img_bx.visible {
+          opacity: 1;
         }
       }
     }

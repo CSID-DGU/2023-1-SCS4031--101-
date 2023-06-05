@@ -64,15 +64,36 @@ const VideoSelect = () => {
         </div>
         <div className="convertedVideoWrap">
           <div className="convertedVideo1Bx">
-            <div className="convertedVideo1" />
+            <div
+              className="convertedVideo1"
+              // onClick={() =>
+              //   history.push("/video", {
+              //     url: "http://127.0.0.1:5000/afteropencv_weak",
+              //   })
+              // }
+            />
             <span className="convertedText1">옅음</span>
           </div>
           <div className="convertedVideo2Bx">
-            <div className="convertedVideo2" />
+            <div
+              className="convertedVideo2"
+              // onClick={() =>
+              //   history.push("/video", {
+              //     url: "http://127.0.0.1:5000/afteropencv_user",
+              //   })
+              // }
+            />
             <span className="convertedText2">유저</span>
           </div>
           <div className="convertedVideo3Bx">
-            <div className="convertedVideo3" />
+            <div
+              className="convertedVideo3"
+              // onClick={() =>
+              //   history.push("/video", {
+              //     url: "http://127.0.0.1:5000/afteropencv_strong",
+              //   })
+              // }
+            />
             <span className="convertedText3">진함</span>
           </div>
         </div>
