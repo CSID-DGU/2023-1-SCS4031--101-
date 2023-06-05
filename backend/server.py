@@ -103,6 +103,12 @@ def aow_gen_frames(r1, r2, r3, r4, c1, c2, s1, s2):
 
     capture.release()
 
+#@application.route("/VID")
+# 업로드 메소드
+# 파일업로드
+#파일변환메서드
+#파일변환
+
 @application.route("/afteropencv_user")
 def aou_response_video():
     # r1 = float(request.args.get('r1', 0)) / 2

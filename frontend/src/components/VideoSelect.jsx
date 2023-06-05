@@ -5,7 +5,7 @@ import styled from "styled-components";
 const VideoSelect = () => {
   const location = useLocation();
 
-  useEffect(() => {
+  useEffect(() => { //여기 참조
     const imgElementPre = document.createElement("img");
     imgElementPre.src = "http://127.0.0.1:5000/beforeopencv";
     imgElementPre.alt = "ERROR";
