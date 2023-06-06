@@ -9,15 +9,15 @@ export default function Setting() {
   const [saturation2, setSaturation2] = useState(1);
   const canvasRef = useRef(null);
 
-  const red1 = 0;
-  const red2 = 10;
-  const red3 = 305;
-  const red4 = 360;
-  const cyan1 = 180; // 120?
-  const cyan2 = 230; // 240?
+  const red1 = 0 * 0.5;
+  const red2 = 10 * 0.5;
+  const pink1 = 305 * 0.5;
+  const pink2 = 360 * 0.5;
+  const cyan1 = 180 * 0.5;
+  const cyan2 = 230 * 0.5;
 
   const generateUrl = () => {
-    const url = `/videoselect?r1=${red1}&r2=${red2}&r3=${red3}&r4=${red4}&c1=${cyan1}&c2=${cyan2}&s1=${saturation1}&s2=${saturation2}`;
+    const url = `/videoselect?r1=${red1}&r2=${red2}&p1=${pink1}&p2=${pink2}&c1=${cyan1}&c2=${cyan2}&s1=${saturation1}&s2=${saturation2}`;
     return encodeURI(url);
   };
 
@@ -26,10 +26,6 @@ export default function Setting() {
     const ctx = canvas.getContext("2d");
     const image = new Image();
     image.src = "../image/testPic.png";
-    /*
-    image.src = "../image/test2.jpg";
-    image.src = "../image/test3.jpg";
-    */
 
     const renderImage = () => {
       canvas.width = image.width;
@@ -116,13 +112,11 @@ export default function Setting() {
   }, [saturation1, saturation2]);
 
   const updateSaturation1 = (e) => {
-    setSaturation1(e.target.value);
-    // console.log(`saturation1: ${e.target.value}`);
+    setSaturation1(parseFloat(e.target.value).toFixed(1));
   };
 
   const updateSaturation2 = (e) => {
-    setSaturation2(e.target.value);
-    // console.log(`saturation2: ${e.target.value}`);
+    setSaturation2(parseFloat(e.target.value).toFixed(1));
   };
 
   return (
@@ -140,11 +134,12 @@ export default function Setting() {
               type="range"
               className="range1"
               min="1"
-              max="10"
+              max="3"
+              step="0.1"
               value={saturation1}
               onChange={updateSaturation1}
             />
-            <span id="rangeValue1">{saturation1}</span>
+            <span id="rangeValue1">{parseFloat(saturation1).toFixed(1)}</span>
           </div>
         </label>
         <br />
@@ -154,11 +149,12 @@ export default function Setting() {
               type="range"
               className="range2"
               min="1"
-              max="10"
+              max="3"
+              step="0.1"
               value={saturation2}
               onChange={updateSaturation2}
             />
-            <span id="rangeValue2">{saturation2}</span>
+            <span id="rangeValue2">{parseFloat(saturation2).toFixed(1)}</span>
           </div>
         </label>
         <br />
