@@ -24,6 +24,7 @@ const Wrap = styled.div`
 
   .btn {
     border: 1px solid #fff;
+    border-radius: 10px;
     background: none;
     padding: 10px 20px;
     font-size: 20px;
