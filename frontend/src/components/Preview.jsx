@@ -20,6 +20,8 @@ const Preview = () => {
 
     return () => {
       wrapElement.removeChild(imgElement);
+      // Stop the camera when the component is unmounted
+      // fetch("http://127.0.0.1:5000/stop");
     };
   }, [location]);
 
