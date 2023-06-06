@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import convertBtn from "../assets/Convert.png";
 import React from "react";
 import board from "../assets/board.png";
 import homeBtn from "../assets/homeBtn.png";
-import startBtn from "../assets/startBtn.png";
+import RealTimeBtn from "../assets/RealTimeBtn.png";
+import SavedBtn from "../assets/SavedBtn.png";
 import { Link } from "react-router-dom";
 
 const Main = () => {
@@ -20,7 +20,10 @@ const Main = () => {
           </div>
           <div className="btnBx">
             <Link to="/preview">
-              <img className="startBtn" src={startBtn} />
+              <img className="RealTimeBtn" src={RealTimeBtn} />
+            </Link>
+            <Link to="/preview">
+              <img className="SavedBtn" src={SavedBtn} />
             </Link>
             <Link to="/home">
               <img className="homeBtn" src={homeBtn} />
@@ -55,15 +58,24 @@ const Wrap = styled.div`
     justify-content: center;
 
     .btnBx {
+      /* border: 1px solid white; */
       margin-top: 20px;
-      width: 25em;
+      width: 38em;
       height: 3.2em;
       display: flex;
 
-      .startBtn {
+      .RealTimeBtn {
+        /* border: 1px solid red; */
         cursor: pointer;
         width: 100%;
         height: 100%;
+      }
+
+      .SavedBtn {
+        cursor: pointer;
+        width: 100%;
+        height: 100%;
+        margin-left: 10px;
       }
 
       .homeBtn {

@@ -1,11 +1,14 @@
 import React, { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const VideoSelect = () => {
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
+    const urlParams = window.location.search;
+
     const imgElementPre = document.createElement("img");
     imgElementPre.src = "http://127.0.0.1:5000/beforeopencv";
     imgElementPre.alt = "ERROR";
@@ -16,7 +19,7 @@ const VideoSelect = () => {
     wrapElementPre.appendChild(imgElementPre);
 
     const imgElement = document.createElement("img");
-    imgElement.src = "http://127.0.0.1:5000/afteropencv_weak";
+    imgElement.src = `http://127.0.0.1:5000/afteropencv_weak${urlParams}`;
     imgElement.alt = "ERROR";
     imgElement.style.width = "100%";
     imgElement.style.height = "100%";
@@ -25,7 +28,7 @@ const VideoSelect = () => {
     wrapElement.appendChild(imgElement);
 
     const imgElement2 = document.createElement("img");
-    imgElement2.src = "http://127.0.0.1:5000/afteropencv_user";
+    imgElement2.src = `http://127.0.0.1:5000/afteropencv_user${urlParams}`;
     imgElement2.alt = "ERROR";
     imgElement2.style.width = "100%";
     imgElement2.style.height = "100%";
@@ -35,7 +38,7 @@ const VideoSelect = () => {
     wrapElement2.appendChild(imgElement2);
 
     const imgElement3 = document.createElement("img");
-    imgElement3.src = "http://127.0.0.1:5000/afteropencv_strong";
+    imgElement3.src = `http://127.0.0.1:5000/afteropencv_strong${urlParams}`;
     imgElement3.alt = "ERROR";
     imgElement3.style.width = "100%";
     imgElement3.style.height = "100%";
@@ -64,15 +67,36 @@ const VideoSelect = () => {
         </div>
         <div className="convertedVideoWrap">
           <div className="convertedVideo1Bx">
-            <div className="convertedVideo1" />
+            <div
+              className="convertedVideo1"
+              onClick={() =>
+                navigate("/video", {
+                  state: { url: "http://127.0.0.1:5000/afteropencv_weak" },
+                })
+              }
+            />
             <span className="convertedText1">옅음</span>
           </div>
           <div className="convertedVideo2Bx">
-            <div className="convertedVideo2" />
+            <div
+              className="convertedVideo2"
+              onClick={() =>
+                navigate("/video", {
+                  state: { url: "http://127.0.0.1:5000/afteropencv_user" },
+                })
+              }
+            />
             <span className="convertedText2">유저</span>
           </div>
           <div className="convertedVideo3Bx">
-            <div className="convertedVideo3" />
+            <div
+              className="convertedVideo3"
+              onClick={() =>
+                navigate("/video", {
+                  state: { url: "http://127.0.0.1:5000/afteropencv_strong" },
+                })
+              }
+            />
             <span className="convertedText3">진함</span>
           </div>
         </div>
