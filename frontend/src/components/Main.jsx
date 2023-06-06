@@ -60,7 +60,7 @@ const Wrap = styled.div`
     .btnBx {
       /* border: 1px solid white; */
       margin-top: 20px;
-      width: 35em;
+      width: 38em;
       height: 3.2em;
       display: flex;
 
