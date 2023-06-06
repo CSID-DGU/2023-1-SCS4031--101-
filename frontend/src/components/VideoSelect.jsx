@@ -136,27 +136,28 @@ const Wrap = styled.div`
     display: flex;
 
     .preVideoWrap {
-      border: 1px solid orange;
+      /* border: 1px solid orange; */
       flex: 1;
       display: flex;
       align-items: center;
 
       .preVideo {
-        border: 1px solid white;
+        margin-left: 30px;
+        border: 1px solid black;
         width: 100%;
         height: 50vh;
       }
     }
 
     .convertedVideoWrap {
-      border: 1px solid green;
+      /* border: 1px solid green; */
       flex: 1.3;
       display: flex;
       flex-direction: column;
       justify-content: center;
 
       .convertedVideo1Bx {
-        border: 1px solid white;
+        /* border: 1px solid white; */
         display: flex;
         justify-content: space-evenly;
         height: 25vh;
@@ -177,7 +178,7 @@ const Wrap = styled.div`
       }
 
       .convertedVideo2Bx {
-        border: 1px solid white;
+        /* border: 1px solid white; */
         display: flex;
         justify-content: space-evenly;
         height: 25vh;
@@ -198,7 +199,7 @@ const Wrap = styled.div`
       }
 
       .convertedVideo3Bx {
-        border: 1px solid white;
+        /* border: 1px solid white; */
         display: flex;
         justify-content: space-evenly;
         height: 25vh;

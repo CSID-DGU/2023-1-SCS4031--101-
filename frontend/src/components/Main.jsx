@@ -22,7 +22,7 @@ const Main = () => {
             <Link to="/preview">
               <img className="RealTimeBtn" src={RealTimeBtn} />
             </Link>
-            <Link to="/preview">
+            <Link to="/savedvideo">
               <img className="SavedBtn" src={SavedBtn} />
             </Link>
             <Link to="/home">
