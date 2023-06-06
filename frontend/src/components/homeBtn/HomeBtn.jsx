@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import { IoIosHome } from "react-icons/io";
+import { Link } from "react-router-dom";
 
 const HomeBtn = () => {
   return (
     <Wrap>
-      <div className="btnWrap">
-        <IoIosHome className="homeButton" />
-      </div>
+      <Link to="/home">
+        <button className="btn btn1">Home</button>
+      </Link>
     </Wrap>
   );
 };
@@ -19,24 +19,47 @@ const Wrap = styled.div`
   margin: 0;
   padding: 0;
   position: fixed;
-  top: 10px;
-  left: 10px;
+  top: 50px;
+  left: 50px;
 
-  .btnWrap {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    /* border: 1px solid white; */
-    width: 100px;
-    height: 100px;
+  .btn {
+    border: 1px solid #fff;
+    border-radius: 10px;
+    background: none;
+    padding: 10px 20px;
+    font-size: 20px;
+    font-family: "montserrat";
+    cursor: pointer;
+    transition: 0.8s;
+    position: relative;
+    overflow: hidden;
 
-    .homeButton {
-      width: 60%;
-      height: 60%;
-      padding: 10px;
-      color: white;
-      border: 1px solid white;
-      border-radius: 50%;
+    &::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 0%;
+      background: #fff;
+      z-index: -1;
+      transition: 0.8s;
+    }
+  }
+
+  .btn1 {
+    color: #fff;
+
+    &::before {
+      top: 0;
+      border-radius: 0 0 50% 50%;
+    }
+  }
+
+  .btn1:hover {
+    color: #ea4757;
+
+    &::before {
+      height: 180%;
     }
   }
 `;

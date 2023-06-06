@@ -71,7 +71,9 @@ const VideoSelect = () => {
               className="convertedVideo1"
               onClick={() =>
                 navigate("/video", {
-                  state: { url: "http://127.0.0.1:5000/afteropencv_weak" },
+                  state: {
+                    url: `http://127.0.0.1:5000/afteropencv_weak${window.location.search}`,
+                  },
                 })
               }
             />
@@ -82,7 +84,9 @@ const VideoSelect = () => {
               className="convertedVideo2"
               onClick={() =>
                 navigate("/video", {
-                  state: { url: "http://127.0.0.1:5000/afteropencv_user" },
+                  state: {
+                    url: `http://127.0.0.1:5000/afteropencv_user${window.location.search}`,
+                  },
                 })
               }
             />
@@ -93,7 +97,9 @@ const VideoSelect = () => {
               className="convertedVideo3"
               onClick={() =>
                 navigate("/video", {
-                  state: { url: "http://127.0.0.1:5000/afteropencv_strong" },
+                  state: {
+                    url: `http://127.0.0.1:5000/afteropencv_strong${window.location.search}`,
+                  },
                 })
               }
             />
@@ -136,27 +142,28 @@ const Wrap = styled.div`
     display: flex;
 
     .preVideoWrap {
-      border: 1px solid orange;
+      /* border: 1px solid orange; */
       flex: 1;
       display: flex;
       align-items: center;
 
       .preVideo {
-        border: 1px solid white;
+        margin-left: 30px;
+        border: 1px solid black;
         width: 100%;
         height: 50vh;
       }
     }
 
     .convertedVideoWrap {
-      border: 1px solid green;
+      /* border: 1px solid green; */
       flex: 1.3;
       display: flex;
       flex-direction: column;
       justify-content: center;
 
       .convertedVideo1Bx {
-        border: 1px solid white;
+        /* border: 1px solid white; */
         display: flex;
         justify-content: space-evenly;
         height: 25vh;
@@ -177,7 +184,7 @@ const Wrap = styled.div`
       }
 
       .convertedVideo2Bx {
-        border: 1px solid white;
+        /* border: 1px solid white; */
         display: flex;
         justify-content: space-evenly;
         height: 25vh;
@@ -198,7 +205,7 @@ const Wrap = styled.div`
       }
 
       .convertedVideo3Bx {
-        border: 1px solid white;
+        /* border: 1px solid white; */
         display: flex;
         justify-content: space-evenly;
         height: 25vh;

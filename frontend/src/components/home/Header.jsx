@@ -26,9 +26,15 @@ const Header = () => {
       marker.style.width = e.offsetWidth + "px";
     }
 
+    indicator(item[0]);
+
     item.forEach((link) => {
       link.addEventListener("click", (e) => {
         indicator(e.target);
+
+        if (e.target.innerText === "서비스 소개") {
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
       });
     });
   }, []);

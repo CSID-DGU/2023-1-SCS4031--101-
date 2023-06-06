@@ -19,10 +19,28 @@ const Home = () => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
+          if (entry.target.classList.contains("box2")) {
+            if (entry.isIntersecting) {
+              setTimeout(() => {
+                entry.target.classList.add("visible");
+                const box2ImgBxElement = document.querySelector(".box2_img_bx");
+                if (box2ImgBxElement) {
+                  box2ImgBxElement.classList.add("visible");
+                }
+              }, 100); // 1 second delay
+            } else {
+              entry.target.classList.remove("visible");
+              const box2ImgBxElement = document.querySelector(".box2_img_bx");
+              if (box2ImgBxElement) {
+                box2ImgBxElement.classList.remove("visible");
+              }
+            }
           } else {
-            entry.target.classList.remove("visible");
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+            } else {
+              entry.target.classList.remove("visible");
+            }
           }
         });
       },
@@ -277,10 +295,10 @@ const Wrap = styled.div`
 
   .box1 {
     height: 2000px;
-    border: 1px solid green;
+    /* border: 1px solid green; */
 
     .introWrap {
-      border: 1px solid black;
+      /* border: 1px solid black; */
       position: sticky;
       top: -50px;
       display: flex;
@@ -362,8 +380,8 @@ const Wrap = styled.div`
 
   .box2 {
     margin-top: 50px;
-    border: 1px dashed red;
-    height: 2618px;
+    /* border: 1px dashed red; */
+    height: 2622px;
     background-color: #fff;
     transition: background-color 0.5s ease-in-out;
 
@@ -420,7 +438,7 @@ const Wrap = styled.div`
           width: 400px;
           height: 400px;
           opacity: 0;
-          transition: 1s;
+          transition: opacity 1s 1s;
           animation: rotate 2s linear 1s infinite;
           /* border: 1px solid green; */
 
