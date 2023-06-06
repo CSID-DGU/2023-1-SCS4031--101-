@@ -22,22 +22,22 @@ def adjust_saturation(img, h_ranges, scales):
 
 # 청록색 범위 설정 (H값 범위를 넓게 조절)
 cyan_range = (
-    np.array([85, 0, 0]),  # 청록색 범위의 시작(HSV)
-    np.array([115, 255, 255]),  # 청록색 범위의 끝(HSV)
+    np.array([75, 0, 0]),  # 청록색 범위의 시작(HSV)
+    np.array([110, 255, 255]),  # 청록색 범위의 끝(HSV)
     np.array([0, 0, 0]), # 빈 배열로 설정 (청록색은 하나의 범위로 충분함)
     np.array([0, 0, 0])  # 빈 배열로 설정
 )
 
 # 핑크색에 가까운 빨간색 범위 설정
 red_range = (
-    np.array([145, 5, 0]),   
-    np.array([179, 255, 255]),
+    np.array([160, 5, 0]),   
+    np.array([180, 255, 255]),
     np.array([0, 5, 0]),     
-    np.array([40, 255, 255])
+    np.array([10, 255, 255])
 )
 
 h_ranges = [cyan_range, red_range]
-scales = [2, 2]  # 청록색과 빨간색 범위의 채도 조정값
+scales = [2, 1.5]  # 청록색과 빨간색 범위의 채도 조정값
 
 capture = cv2.VideoCapture(0)
 capture.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
