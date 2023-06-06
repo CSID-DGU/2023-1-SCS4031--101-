@@ -1,4 +1,4 @@
-from flask import Flask, request, Response
+from flask import Flask, request, Response, send_file
 from flask_cors import CORS
 import cv2
 import numpy as np
@@ -178,5 +178,56 @@ def aos_gen_frames(r1, r2, p1, p2, c1, c2, s1, s2):
 #         capture = None
 #     return "Camera stopped"
 
+@application.route("/upload", methods=["POST"])
+def upload():
+    file = request.files["file"]
+    video_path = "backend/videofiles/video.mp4"  # videofiles 폴더에 저장될 파일 경로 설정
+    file.save(video_path)
+
+    return "File uploaded successfully"
+
+
+@application.route("/process", methods=["POST"])
+def process():
+    video_path = "backend/videofiles/video.mp4"  # 업로드된 파일 경로
+    processed_path = "backend/videofiles/processed_video.mp4"  # 변환된 파일 저장 경로
+
+    r1 = float(request.form.get('r1', 4 * 0.5))
+    r2 = float(request.form.get('r2', 14 * 0.5))
+    p1 = float(request.form.get('p1', 304 * 0.5))
+    p2 = float(request.form.get('p2', 354 * 0.5))
+    c1 = float(request.form.get('c1', 184 * 0.5))
+    c2 = float(request.form.get('c2', 234 * 0.5))
+    s1 = float(request.form.get('s1', 1.0 * 0.5))
+    s2 = float(request.form.get('s2', 1.0 * 0.5))
+    print(f'Process: {r1}~{r2}, {p1}~{p2}, {c1}~{c2}, {s1}, {s2}')
+
+    capture = cv2.VideoCapture(video_path)
+    frame_width = int(capture.get(cv2.CAP_PROP_FRAME_WIDTH))
+    frame_height = int(capture.get(cv2.CAP_PROP_FRAME_HEIGHT))
+    fps = capture.get(cv2.CAP_PROP_FPS)
+
+    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+    writer = cv2.VideoWriter(processed_path, fourcc, fps, (frame_width, frame_height))
+
+    while True:
+        ret, frame = capture.read()
+        if not ret:
+            break
+
+        filtered = aou_color_filter(frame, r1, r2, p1, p2, c1, c2, s1, s2)
+        writer.write(filtered)
+
+    writer.release()
+    capture.release()
+
+    return "Video processing complete"
+
+
+
+@application.route("/download", methods=["GET"])
+def download():
+    processed_path = "backend/videofiles/processed_video.mp4"  # 변환된 파일 경로
+    return send_file(processed_path, as_attachment=True, attachment_filename="output.mp4")
 if __name__ == '__main__':
     application.run(debug=True)
