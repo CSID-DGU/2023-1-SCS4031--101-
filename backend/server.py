@@ -1,5 +1,6 @@
 from flask import Flask, request, Response,send_file
 from flask_cors import CORS
+import os
 import cv2
 import numpy as np
 
@@ -12,6 +13,22 @@ capture = cv2.VideoCapture(0)
 capture.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
 capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
 
+# 동영상 /videofiles로 이동
+@application.route("/upload_video", methods=["POST"])
+def upload_video():
+
+    if "file" not in request.files:
+        return "No file part", 400
+
+    file = request.files["file"]
+
+    if file.filename == '':
+        return "No selected file", 400
+
+    if file:
+        filename = os.path.join("videofiles/", file.filename)
+        file.save(filename)
+        return "Upload successful!", 200
 
 @application.route("/beforeopencv")
 def bo_response_video():
