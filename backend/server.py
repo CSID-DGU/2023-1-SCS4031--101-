@@ -12,13 +12,16 @@ capture = cv2.VideoCapture(0)
 capture.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
 capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
 
+
 @application.route("/beforeopencv")
 def bo_response_video():
     return Response(bo_gen_frames(),
                     mimetype="multipart/x-mixed-replace; boundary=frame")
+
+
 def bo_gen_frames():
     global capture
-    
+
     while True:
         ret, frame = capture.read()
         if not ret:
@@ -28,6 +31,7 @@ def bo_gen_frames():
             frame = buffer.tobytes()
             yield (b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+
 
 @application.route("/afteropencv_weak")
 def aow_response_video():
@@ -43,6 +47,8 @@ def aow_response_video():
 
     return Response(aow_gen_frames(r1, r2, p1, p2, c1, c2, s1, s2),
                     mimetype="multipart/x-mixed-replace; boundary=frame")
+
+
 def aow_color_filter(img, r1, r2, p1, p2, c1, c2, s1, s2):
     hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 
@@ -62,6 +68,8 @@ def aow_color_filter(img, r1, r2, p1, p2, c1, c2, s1, s2):
     hsv[mask_cyan == 255, 1] = np.clip(hsv[mask_cyan == 255, 1] * s2, 0, 255)
 
     return cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
+
+
 def aow_gen_frames(r1, r2, p1, p2, c1, c2, s1, s2):
     global capture
 
@@ -75,6 +83,7 @@ def aow_gen_frames(r1, r2, p1, p2, c1, c2, s1, s2):
             frame = buffer.tobytes()
             yield (b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+
 
 @application.route("/afteropencv_user")
 def aou_response_video():
@@ -90,6 +99,8 @@ def aou_response_video():
 
     return Response(aou_gen_frames(r1, r2, p1, p2, c1, c2, s1, s2),
                     mimetype="multipart/x-mixed-replace; boundary=frame")
+
+
 def aou_color_filter(img, r1, r2, p1, p2, c1, c2, s1, s2):
     hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 
@@ -109,6 +120,8 @@ def aou_color_filter(img, r1, r2, p1, p2, c1, c2, s1, s2):
     hsv[mask_cyan == 255, 1] = np.clip(hsv[mask_cyan == 255, 1] * s2, 0, 255)
 
     return cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
+
+
 def aou_gen_frames(r1, r2, p1, p2, c1, c2, s1, s2):
     global capture
 
@@ -122,6 +135,7 @@ def aou_gen_frames(r1, r2, p1, p2, c1, c2, s1, s2):
             frame = buffer.tobytes()
             yield (b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+
 
 @application.route("/afteropencv_strong")
 def aos_response_video():
@@ -137,6 +151,8 @@ def aos_response_video():
 
     return Response(aos_gen_frames(r1, r2, p1, p2, c1, c2, s1, s2),
                     mimetype="multipart/x-mixed-replace; boundary=frame")
+
+
 def aos_color_filter(img, r1, r2, p1, p2, c1, c2, s1, s2):
     hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 
@@ -155,7 +171,9 @@ def aos_color_filter(img, r1, r2, p1, p2, c1, c2, s1, s2):
     mask_cyan = cv2.inRange(hsv, lower_cyan, upper_cyan)
     hsv[mask_cyan == 255, 1] = np.clip(hsv[mask_cyan == 255, 1] * s2, 0, 255)
 
-    return cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)    
+    return cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
+
+
 def aos_gen_frames(r1, r2, p1, p2, c1, c2, s1, s2):
     global capture
 
@@ -177,6 +195,7 @@ def aos_gen_frames(r1, r2, p1, p2, c1, c2, s1, s2):
 #         capture.release()
 #         capture = None
 #     return "Camera stopped"
+
 
 if __name__ == '__main__':
     application.run(debug=True)
