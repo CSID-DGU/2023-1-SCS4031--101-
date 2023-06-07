@@ -1,4 +1,4 @@
-@app.route("/upload", methods=["POST"])
+@application.route("/upload", methods=["POST"])
 def upload():
     file = request.files["file"]
     video_path = "backend/videofiles/video.mp4"  # videofiles 폴더에 저장될 파일 경로 설정
