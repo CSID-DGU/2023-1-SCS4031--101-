@@ -198,6 +198,7 @@ const Wrap = styled.div`
         width: 40%;
         padding: 40px;
         background: #fff;
+        border-radius: 20px;
 
         h2 {
           font-size: 30px;

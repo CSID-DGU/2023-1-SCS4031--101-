@@ -5,19 +5,23 @@ import preBtn from "../assets/preBtn.png";
 import nextBtn from "../assets/nextBtn.png";
 
 export default function Setting() {
+  const red1 = 0;
+  const red2 = 10;
+  const pink1 = 305;
+  const pink2 = 360;
+  const cyan1 = 180;
+  const cyan2 = 230;
+
   const [saturation1, setSaturation1] = useState(1);
   const [saturation2, setSaturation2] = useState(1);
   const canvasRef = useRef(null);
 
-  const red1 = 0 * 0.5;
-  const red2 = 10 * 0.5;
-  const pink1 = 305 * 0.5;
-  const pink2 = 360 * 0.5;
-  const cyan1 = 180 * 0.5;
-  const cyan2 = 230 * 0.5;
-
   const generateUrl = () => {
-    const url = `/videoselect?r1=${red1}&r2=${red2}&p1=${pink1}&p2=${pink2}&c1=${cyan1}&c2=${cyan2}&s1=${saturation1}&s2=${saturation2}`;
+    const url = `/videoselect?r1=${red1 * 0.5}&r2=${red2 * 0.5}&p1=${
+      pink1 * 0.5
+    }&p2=${pink2 * 0.5}&c1=${cyan1 * 0.5}&c2=${
+      cyan2 * 0.5
+    }&s1=${saturation1}&s2=${saturation2}`;
     return encodeURI(url);
   };
 
@@ -61,7 +65,7 @@ export default function Setting() {
         v = max / 255;
         s = max === 0 ? 0 : diff / max;
 
-        if ((h >= red1 && h <= red2) || (h >= red3 && h <= red4)) {
+        if ((h >= red1 && h <= red2) || (h >= pink1 && h <= pink2)) {
           s *= saturation1;
         } else if (h >= cyan1 && h <= cyan2) {
           s *= saturation2;
