@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import preBtn from "../assets/preBtn.png";
 import nextBtn from "../assets/nextBtn.png";
 
-export default function Setting() {
+export default function SavedSetting() {
   const red1 = 0;
   const red2 = 10;
   const pink1 = 305;
@@ -17,7 +17,7 @@ export default function Setting() {
   const canvasRef = useRef(null);
 
   const generateUrl = () => {
-    const url = `/videoselect?r1=${red1 * 0.5}&r2=${red2 * 0.5}&p1=${
+    const url = `/savedvideo?r1=${red1 * 0.5}&r2=${red2 * 0.5}&p1=${
       pink1 * 0.5
     }&p2=${pink2 * 0.5}&c1=${cyan1 * 0.5}&c2=${
       cyan2 * 0.5
@@ -126,7 +126,7 @@ export default function Setting() {
   return (
     <Wrap>
       <div className="text">
-        단계2
+        변환하고 싶은
         <br />
         알맞은 색상 수치를 설정해주세요
       </div>
@@ -164,7 +164,7 @@ export default function Setting() {
         <br />
         <div className="btnWrap">
           <div className="btnBx">
-            <Link to="/preview">
+            <Link to="/">
               <div className="preWrap">
                 <img src={preBtn} />
               </div>
