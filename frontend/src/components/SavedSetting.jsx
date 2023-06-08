@@ -5,23 +5,38 @@ import preBtn from "../assets/preBtn.png";
 import nextBtn from "../assets/nextBtn.png";
 
 export default function SavedSetting() {
+  // red
   const red1 = 0;
-  const red2 = 10;
-  const pink1 = 305;
-  const pink2 = 360;
-  const cyan1 = 180;
+  const red2 = 40; // 10?????
+  // yellow
+  // ㄱㄱㄱㄱㄱ
+  const yellow1 = 41;
+  const yellow2 = 60;
+  // green
+  // ㄱㄱㄱㄱㄱ
+  const green1 = 61;
+  const green2 = 90;
+  // cyan
+  const cyan1 = 91;
   const cyan2 = 230;
+  // navy
+  // ㄱㄱㄱㄱㄱ
+  const navy1 = 231;
+  const navy2 = 270;
+  // purple
+  //  ㄱㄱㄱㄱㄱ
+  const purple1 = 271;
+  const purple2 = 290;
+  // pink
+  const pink1 = 291; // 305?????
+  const pink2 = 360;
 
   const [saturation1, setSaturation1] = useState(1);
   const [saturation2, setSaturation2] = useState(1);
   const canvasRef = useRef(null);
 
   const generateUrl = () => {
-    const url = `/savedvideo?r1=${red1 * 0.5}&r2=${red2 * 0.5}&p1=${
-      pink1 * 0.5
-    }&p2=${pink2 * 0.5}&c1=${cyan1 * 0.5}&c2=${
-      cyan2 * 0.5
-    }&s1=${saturation1}&s2=${saturation2}`;
+    const url = `/savedvideo?r1=${red1}&r2=${red2}&p1=${pink1}&p2=${pink2}&c1=${cyan1}&c2=${cyan2}&s1=${saturation1}&s2=${saturation2}`;
     return encodeURI(url);
   };
 
