@@ -6,151 +6,80 @@ import numpy as np
 application = Flask(__name__)
 CORS(application)
 
-capture = None
+# 동영상 /videofiles로 이동
+@application.route("/upload_video", methods=["POST"])
+def upload_video():
+    if "file" not in request.files:
+        return "No file part", 400
 
-@application.route("/")
-def index():
-    return render_template("index.html")
+    file = request.files["file"]
 
-@application.route("/beforeopencv")
-def bo_response_video():
-    return Response(bo_gen_frames(),
-                    mimetype="multipart/x-mixed-replace; boundary=frame")
+    if file.filename == '':
+        return "No selected file", 400
 
-def bo_gen_frames():
-    global capture
-    capture = cv2.VideoCapture(0)
-    
-    capture.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
-    capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
+    if file:
+        filename = os.path.join("videofiles/", file.filename)
+        file.save(filename)
+        return "Upload successful!", 200
 
-    while True:
-        ret, frame = capture.read()
-        if not ret:
-            break
-        else:
-            ret, buffer = cv2.imencode('.jpg', frame)
-            frame = buffer.tobytes()
-            yield (b'--frame\r\n'
-                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+@application.route("/upload", methods=["POST"])
+def upload():
+    file = request.files["file"]
+    video_path = "backend/videofiles/video.mp4"  # videofiles 폴더에 저장될 파일 경로 설정
+    file.save(video_path)
 
-    capture.release()
+    return "File uploaded successfully"
 
-@application.route("/afteropencv_weak")
-def aow_response_video():
-    r1 = float(request.args.get('r1', 1))
-    r2 = float(request.args.get('r2', 11))
-    r3 = float(request.args.get('r3', 304))
-    r4 = float(request.args.get('r4', 359))
-    c1 = float(request.args.get('c1', 181))
-    c2 = float(request.args.get('c2', 231))
-    s1 = float(request.args.get('s1', 1.0)) * 0.5
-    s2 = float(request.args.get('s2', 1.0)) * 0.5
-    print(f'r1: {r1}, r2: {r2}, r3: {r3}, r4: {r4}, c1: {c1}, c2: {c2}, s1: {s1}, s2: {s2}')
-
-    return Response(aow_gen_frames(r1, r2, r3, r4, c1, c2, s1, s2),
-                    mimetype="multipart/x-mixed-replace; boundary=frame")
-
-def aow_color_filter(img, r1, r2, r3, r4, c1, c2, s1, s2):
-    hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
-
-    lower_red1 = np.array([r1, 0, 0])
-    upper_red1 = np.array([r2, 100, 100])
-    lower_red2 = np.array([r3, 0, 0])
-    upper_red2 = np.array([r4, 100, 100])
-
-    mask_red1 = cv2.inRange(hsv, lower_red1, upper_red1)
-    mask_red2 = cv2.inRange(hsv, lower_red2, upper_red2)
-
-    hsv[mask_red1 == 255, 1] = np.clip(hsv[mask_red1 == 255, 1] * s1, 0, 100)
-    hsv[mask_red2 == 255, 1] = np.clip(hsv[mask_red2 == 255, 1] * s1, 0, 100)
-
-    lower_cyan = np.array([c1, 0, 0])
-    upper_cyan = np.array([c2, 100, 100])
-
-    mask_cyan = cv2.inRange(hsv, lower_cyan, upper_cyan)
-
-    hsv[mask_cyan == 255, 1] = np.clip(hsv[mask_cyan == 255, 1] * s2, 0, 100)
-
-    return cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
-
-def aow_gen_frames(r1, r2, r3, r4, c1, c2, s1, s2):
-    global capture
-    capture = cv2.VideoCapture(0)
-    
-    capture.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
-    capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
-
-    while True:
-        ret, frame = capture.read()
-        if not ret:
-            break
-        else:
-            filtered = aow_color_filter(frame, r1, r2, r3, r4, c1, c2, s1, s2)
-            ret, buffer = cv2.imencode('.jpg', filtered)
-            frame = buffer.tobytes()
-            yield (b'--frame\r\n'
-                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
-
-    capture.release()
-
-@application.route("/afteropencv_user")
-def aou_response_video():
-    r1 = float(request.args.get('r1', 1))
-    r2 = float(request.args.get('r2', 11))
-    r3 = float(request.args.get('r3', 304))
-    r4 = float(request.args.get('r4', 359))
-    c1 = float(request.args.get('c1', 181))
-    c2 = float(request.args.get('c2', 231))
+@application.route("/process", methods=["POST"])
+def process():
+    r1 = float(request.args.get('r1', 4 * 0.5)) * 0.5
+    r2 = float(request.args.get('r2', 14 * 0.5)) * 0.5
+    p1 = float(request.args.get('p1', 304 * 0.5)) * 0.5
+    p2 = float(request.args.get('p2', 354 * 0.5)) * 0.5
+    c1 = float(request.args.get('c1', 184 * 0.5)) * 0.5
+    c2 = float(request.args.get('c2', 234 * 0.5)) * 0.5
     s1 = float(request.args.get('s1', 1.0))
     s2 = float(request.args.get('s2', 1.0))
-    print(f'r1: {r1}, r2: {r2}, r3: {r3}, r4: {r4}, c1: {c1}, c2: {c2}, s1: {s1}, s2: {s2}')
+    print(f'PRC: {r1}~{r2}, {p1}~{p2}, {c1}~{c2}, {s1}, {s2}')
 
-    return Response(aou_gen_frames(r1, r2, r3, r4, c1, c2, s1, s2),
-                    mimetype="multipart/x-mixed-replace; boundary=frame")
+    video_path = "backend/videofiles/video.mp4"  # 업로드된 파일 경로
+    processed_path = "backend/videofiles/processed_video.mp4"  # 변환된 파일 저장 경로
 
-def aou_color_filter(img, r1, r2, r3, r4, c1, c2, s1, s2):
+    adjust_saturation(video_path, processed_path, r1, r2, p1, p2, c1, c2, s1, s2)
+
+    return "Video processing complete"
+def adjust_saturation(video_path, processed_path, r1, r2, p1, p2, c1, c2, s1, s2):
     hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 
-    lower_red1 = np.array([r1, 0, 0])
-    upper_red1 = np.array([r2, 100, 100])
-    lower_red2 = np.array([r3, 0, 0])
-    upper_red2 = np.array([r4, 100, 100])
+    lower_red = np.array([r1, 0, 0])
+    upper_red = np.array([r2, 255, 255])
+    mask_red = cv2.inRange(hsv, lower_red, upper_red)
+    hsv[mask_red == 255, 1] = np.clip(hsv[mask_red == 255, 1] * s1, 0, 255)
 
-    mask_red1 = cv2.inRange(hsv, lower_red1, upper_red1)
-    mask_red2 = cv2.inRange(hsv, lower_red2, upper_red2)
-
-    hsv[mask_red1 == 255, 1] = np.clip(hsv[mask_red1 == 255, 1] * s1, 0, 100)
-    hsv[mask_red2 == 255, 1] = np.clip(hsv[mask_red2 == 255, 1] * s1, 0, 100)
+    lower_pink = np.array([p1, 0, 0])
+    upper_pink = np.array([p2, 255, 255])
+    mask_pink = cv2.inRange(hsv, lower_pink, upper_pink)
+    hsv[mask_pink == 255, 1] = np.clip(hsv[mask_pink == 255, 1] * s1, 0, 255)
 
     lower_cyan = np.array([c1, 0, 0])
-    upper_cyan = np.array([c2, 100, 100])
-
+    upper_cyan = np.array([c2, 255, 255])
     mask_cyan = cv2.inRange(hsv, lower_cyan, upper_cyan)
-
-    hsv[mask_cyan == 255, 1] = np.clip(hsv[mask_cyan == 255, 1] * s2, 0, 100)
+    hsv[mask_cyan == 255, 1] = np.clip(hsv[mask_cyan == 255, 1] * s2, 0, 255)
 
     return cv2.cvtColor(hsv, cv2.COLOR_HSV2BGR)
 
-def aou_gen_frames(r1, r2, r3, r4, c1, c2, s1, s2):
-    global capture
-    capture = cv2.VideoCapture(0)
-    
-    capture.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
-    capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
+@application.route("/download", methods=["GET"])
+def download():
+    processed_path = "backend/videofiles/processed_video.mp4"  # 변환된 파일 경로
 
-    while True:
-        ret, frame = capture.read()
-        if not ret:
-            break
-        else:
-            filtered = aou_color_filter(frame, r1, r2, r3, r4, c1, c2, s1, s2)
-            ret, buffer = cv2.imencode('.jpg', filtered)
-            frame = buffer.tobytes()
-            yield (b'--frame\r\n'
-                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+    return send_file(processed_path, as_attachment=True, attachment_filename="output.mp4") # ?????
 
-    capture.release()
+# 위의 코드에서 upload 함수는 업로드된 파일을 backend/videofiles 폴더에 
+# 저장하도록 변경되었습니다. 
+# 마찬가지로 process 함수에서는 adjust_saturation 함수에 
+# 새로운 인수들을 추가하여 빨간색과 파란색의 S값을 전달합니다. 
+# 마지막으로 download 함수는 변환된 파일을 다운로드할 수 있도록 
+# 파일 경로를 수정하였습니다.
 
 if __name__ == '__main__':
     application.run()
