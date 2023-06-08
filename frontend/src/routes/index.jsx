@@ -7,6 +7,7 @@ import HomePage from "../pages/HomePage";
 import VideoSelectPage from "../pages/VideoSelectPage";
 import VideoPage from "../pages/VideoPage";
 import SavedVideo from "../components/SavedVideo";
+import SavedSetting from "../components/SavedSetting";
 import HomeBtn from "../components/homeBtn/HomeBtn";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import "./transition.css";
@@ -26,6 +27,7 @@ function TransitionRoutes() {
             <Route path="/setting" element={<SettingPage />} />
             <Route path="/videoselect" element={<VideoSelectPage />} />
             <Route path="/video" element={<VideoPage />} />
+            <Route path="/savedsetting" element={<SavedSetting />} />
             <Route path="/savedvideo" element={<SavedVideo />} />
           </Routes>
         </CSSTransition>
