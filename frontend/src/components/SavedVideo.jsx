@@ -31,6 +31,20 @@ const SavedVideo = () => {
     }
   };
 
+  const handleConvertClick = async () => {
+    const filename = fileInputRef.current.files[0].name;
+
+    try {
+      const response = await axios.post("http://127.0.0.1:5000/convert_video", {
+        filename: filename,
+      });
+      alert("변환 완료!");
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <Wrap>
       <input
@@ -45,7 +59,7 @@ const SavedVideo = () => {
         <button onClick={handleUploadClick}>업로드</button>
       </div>
       {showConvertButton && (
-        <div className="btnWrap">
+        <div className="btnWrap" onClick={handleConvertClick}>
           <img src={Convert} />
         </div>
       )}
