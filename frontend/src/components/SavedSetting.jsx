@@ -126,7 +126,7 @@ export default function SavedSetting() {
   return (
     <Wrap>
       <div className="text">
-        단계2
+        변환하고 싶은
         <br />
         알맞은 색상 수치를 설정해주세요
       </div>
