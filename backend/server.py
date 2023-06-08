@@ -2,6 +2,7 @@ from flask import Flask, request, Response,send_file
 from flask_cors import CORS
 import cv2
 import numpy as np
+import os
 
 application = Flask(__name__)
 
@@ -31,12 +32,12 @@ def bo_gen_frames():
 
 @application.route("/afteropencv_weak")
 def aow_response_video():
-    r1 = float(request.args.get('r1', 4 * 0.5))
-    r2 = float(request.args.get('r2', 14 * 0.5))
-    p1 = float(request.args.get('p1', 304 * 0.5))
-    p2 = float(request.args.get('p2', 354 * 0.5))
-    c1 = float(request.args.get('c1', 184 * 0.5))
-    c2 = float(request.args.get('c2', 234 * 0.5))
+    r1 = float(request.args.get('r1', 4 * 0.5)) * 0.5
+    r2 = float(request.args.get('r2', 14 * 0.5)) * 0.5
+    p1 = float(request.args.get('p1', 304 * 0.5)) * 0.5
+    p2 = float(request.args.get('p2', 354 * 0.5)) * 0.5
+    c1 = float(request.args.get('c1', 184 * 0.5)) * 0.5
+    c2 = float(request.args.get('c2', 234 * 0.5)) * 0.5
     s1 = float(request.args.get('s1', 1.0)) * 0.7
     s2 = float(request.args.get('s2', 1.0)) * 0.7
     print(f'AOW: {r1}~{r2}, {p1}~{p2}, {c1}~{c2}, {s1}, {s2}')
@@ -78,12 +79,12 @@ def aow_gen_frames(r1, r2, p1, p2, c1, c2, s1, s2):
 
 @application.route("/afteropencv_user")
 def aou_response_video():
-    r1 = float(request.args.get('r1', 4 * 0.5))
-    r2 = float(request.args.get('r2', 14 * 0.5))
-    p1 = float(request.args.get('p1', 304 * 0.5))
-    p2 = float(request.args.get('p2', 354 * 0.5))
-    c1 = float(request.args.get('c1', 184 * 0.5))
-    c2 = float(request.args.get('c2', 234 * 0.5))
+    r1 = float(request.args.get('r1', 4 * 0.5)) * 0.5
+    r2 = float(request.args.get('r2', 14 * 0.5)) * 0.5
+    p1 = float(request.args.get('p1', 304 * 0.5)) * 0.5
+    p2 = float(request.args.get('p2', 354 * 0.5)) * 0.5
+    c1 = float(request.args.get('c1', 184 * 0.5)) * 0.5
+    c2 = float(request.args.get('c2', 234 * 0.5)) * 0.5
     s1 = float(request.args.get('s1', 1.0))
     s2 = float(request.args.get('s2', 1.0))
     print(f'AOU: {r1}~{r2}, {p1}~{p2}, {c1}~{c2}, {s1}, {s2}')
@@ -125,12 +126,12 @@ def aou_gen_frames(r1, r2, p1, p2, c1, c2, s1, s2):
 
 @application.route("/afteropencv_strong")
 def aos_response_video():
-    r1 = float(request.args.get('r1', 4 * 0.5))
-    r2 = float(request.args.get('r2', 14 * 0.5))
-    p1 = float(request.args.get('p1', 304 * 0.5))
-    p2 = float(request.args.get('p2', 354 * 0.5))
-    c1 = float(request.args.get('c1', 184 * 0.5))
-    c2 = float(request.args.get('c2', 234 * 0.5))
+    r1 = float(request.args.get('r1', 4 * 0.5)) * 0.5
+    r2 = float(request.args.get('r2', 14 * 0.5)) * 0.5
+    p1 = float(request.args.get('p1', 304 * 0.5)) * 0.5
+    p2 = float(request.args.get('p2', 354 * 0.5)) * 0.5
+    c1 = float(request.args.get('c1', 184 * 0.5)) * 0.5
+    c2 = float(request.args.get('c2', 234 * 0.5)) * 0.5
     s1 = float(request.args.get('s1', 1.0)) * 1.3
     s2 = float(request.args.get('s2', 1.0)) * 1.3
     print(f'AOS: {r1}~{r2}, {p1}~{p2}, {c1}~{c2}, {s1}, {s2}')
@@ -178,6 +179,22 @@ def aos_gen_frames(r1, r2, p1, p2, c1, c2, s1, s2):
 #         capture = None
 #     return "Camera stopped"
 
+# 동영상 /videofiles로 이동
+@application.route("/upload_video", methods=["POST"])
+def upload_video():
+    if "file" not in request.files:
+        return "No file part", 400
+
+    file = request.files["file"]
+
+    if file.filename == '':
+        return "No selected file", 400
+
+    if file:
+        filename = os.path.join("videofiles/", file.filename)
+        file.save(filename)
+        return "Upload successful!", 200
+
 @application.route("/upload", methods=["POST"])
 def upload():
     file = request.files["file"]
@@ -188,12 +205,12 @@ def upload():
 
 @application.route("/process", methods=["POST"])
 def process():
-    r1 = float(request.args.get('r1', 4 * 0.5))
-    r2 = float(request.args.get('r2', 14 * 0.5))
-    p1 = float(request.args.get('p1', 304 * 0.5))
-    p2 = float(request.args.get('p2', 354 * 0.5))
-    c1 = float(request.args.get('c1', 184 * 0.5))
-    c2 = float(request.args.get('c2', 234 * 0.5))
+    r1 = float(request.args.get('r1', 4 * 0.5)) * 0.5
+    r2 = float(request.args.get('r2', 14 * 0.5)) * 0.5
+    p1 = float(request.args.get('p1', 304 * 0.5)) * 0.5
+    p2 = float(request.args.get('p2', 354 * 0.5)) * 0.5
+    c1 = float(request.args.get('c1', 184 * 0.5)) * 0.5
+    c2 = float(request.args.get('c2', 234 * 0.5)) * 0.5
     s1 = float(request.args.get('s1', 1.0))
     s2 = float(request.args.get('s2', 1.0))
     print(f'PRC: {r1}~{r2}, {p1}~{p2}, {c1}~{c2}, {s1}, {s2}')
