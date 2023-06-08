@@ -33,12 +33,12 @@ def bo_gen_frames():
 
 @application.route("/afteropencv_weak")
 def aow_response_video():
-    r1 = float(request.args.get('r1', 4)) * 0.5
-    r2 = float(request.args.get('r2', 44)) * 0.5
-    p1 = float(request.args.get('p1', 294)) * 0.5
-    p2 = float(request.args.get('p2', 354)) * 0.5
-    c1 = float(request.args.get('c1', 94)) * 0.5
-    c2 = float(request.args.get('c2', 234)) * 0.5
+    r1 = float(request.args.get('r1', 8)) * 0.5
+    r2 = float(request.args.get('r2', 48)) * 0.5
+    p1 = float(request.args.get('p1', 298)) * 0.5
+    p2 = float(request.args.get('p2', 358)) * 0.5
+    c1 = float(request.args.get('c1', 98)) * 0.5
+    c2 = float(request.args.get('c2', 238)) * 0.5
     s1 = float(request.args.get('s1', 1.0)) * 0.7
     s2 = float(request.args.get('s2', 1.0)) * 0.7
     print(f'AOW: {r1}~{r2}, {p1}~{p2}, {c1}~{c2}, {s1}, {s2}')
@@ -80,12 +80,12 @@ def aow_gen_frames(r1, r2, p1, p2, c1, c2, s1, s2):
 
 @application.route("/afteropencv_user")
 def aou_response_video():
-    r1 = float(request.args.get('r1', 4)) * 0.5
-    r2 = float(request.args.get('r2', 44)) * 0.5
-    p1 = float(request.args.get('p1', 294)) * 0.5
-    p2 = float(request.args.get('p2', 354)) * 0.5
-    c1 = float(request.args.get('c1', 94)) * 0.5
-    c2 = float(request.args.get('c2', 234)) * 0.5
+    r1 = float(request.args.get('r1', 8)) * 0.5
+    r2 = float(request.args.get('r2', 48)) * 0.5
+    p1 = float(request.args.get('p1', 298)) * 0.5
+    p2 = float(request.args.get('p2', 358)) * 0.5
+    c1 = float(request.args.get('c1', 98)) * 0.5
+    c2 = float(request.args.get('c2', 238)) * 0.5
     s1 = float(request.args.get('s1', 1.0))
     s2 = float(request.args.get('s2', 1.0))
     print(f'AOU: {r1}~{r2}, {p1}~{p2}, {c1}~{c2}, {s1}, {s2}')
@@ -127,12 +127,12 @@ def aou_gen_frames(r1, r2, p1, p2, c1, c2, s1, s2):
 
 @application.route("/afteropencv_strong")
 def aos_response_video():
-    r1 = float(request.args.get('r1', 4)) * 0.5
-    r2 = float(request.args.get('r2', 44)) * 0.5
-    p1 = float(request.args.get('p1', 294)) * 0.5
-    p2 = float(request.args.get('p2', 354)) * 0.5
-    c1 = float(request.args.get('c1', 94)) * 0.5
-    c2 = float(request.args.get('c2', 234)) * 0.5
+    r1 = float(request.args.get('r1', 8)) * 0.5
+    r2 = float(request.args.get('r2', 48)) * 0.5
+    p1 = float(request.args.get('p1', 298)) * 0.5
+    p2 = float(request.args.get('p2', 358)) * 0.5
+    c1 = float(request.args.get('c1', 98)) * 0.5
+    c2 = float(request.args.get('c2', 238)) * 0.5
     s1 = float(request.args.get('s1', 1.0)) * 1.3
     s2 = float(request.args.get('s2', 1.0)) * 1.3
     print(f'AOS: {r1}~{r2}, {p1}~{p2}, {c1}~{c2}, {s1}, {s2}')
@@ -204,23 +204,36 @@ def convert_video():
     input_file_path = os.path.join("videofiles/", filename)
     output_file_path = os.path.join("videofiles/", "converted_" + filename)
 
+    color_settings = request.json.get('colorSettings', {})
+
+    params = {
+        'r1': color_settings.get('r1', 8),
+        'r2': color_settings.get('r2', 48),
+        'p1': color_settings.get('p1', 298),
+        'p2': color_settings.get('p2', 358),
+        'c1': color_settings.get('c1', 98),
+        'c2': color_settings.get('c2', 238),
+        's1': color_settings.get('s1', 1.0),
+        's2': color_settings.get('s2', 1.0)
+    }
+
     video = VideoFileClip(input_file_path)
-    new_video = video.fl_image(adjust_saturations)
+    new_video = video.fl_image(lambda img: adjust_saturation(img, params))
     new_video.write_videofile(output_file_path)
     
     return "Conversion successful!", 200
-def adjust_saturations(image):
-    r1 = float(request.args.get('r1', 4)) * 0.5
-    r2 = float(request.args.get('r2', 44)) * 0.5
-    p1 = float(request.args.get('p1', 294)) * 0.5
-    p2 = float(request.args.get('p2', 354)) * 0.5
-    c1 = float(request.args.get('c1', 94)) * 0.5
-    c2 = float(request.args.get('c2', 234)) * 0.5
-    s1 = float(request.args.get('s1', 1.0))
-    s2 = float(request.args.get('s2', 1.0))
+def adjust_saturation(img, params):
+    r1 = float(params['r1']) * 0.5
+    r2 = float(params['r2']) * 0.5
+    p1 = float(params['p1']) * 0.5
+    p2 = float(params['p2']) * 0.5
+    c1 = float(params['c1']) * 0.5
+    c2 = float(params['c2']) * 0.5
+    s1 = float(params['s1'])
+    s2 = float(params['s2'])
     print(f'CONVERTVIDEO: {r1}~{r2}, {p1}~{p2}, {c1}~{c2}, {s1}, {s2}')
 
-    hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+    hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
 
     lower_red = np.array([r1, 0, 0])
     upper_red = np.array([r2, 255, 255])
@@ -241,5 +254,3 @@ def adjust_saturations(image):
 
 if __name__ == '__main__':
     application.run(debug=True)
-
-

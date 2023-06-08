@@ -1,4 +1,5 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 import axios from "axios";
 import Convert from "../assets/Convert.png";
@@ -6,6 +7,24 @@ import Convert from "../assets/Convert.png";
 const SavedVideo = () => {
   const fileInputRef = useRef(null);
   const [showConvertButton, setShowConvertButton] = useState(false);
+
+  // URL의 쿼리 파라미터에서 보정 값 읽기
+  const location = useLocation();
+  const [colorSettings, setColorSettings] = useState({});
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    setColorSettings({
+      r1: params.get("r1"),
+      r2: params.get("r2"),
+      p1: params.get("p1"),
+      p2: params.get("p2"),
+      c1: params.get("c1"),
+      c2: params.get("c2"),
+      s1: params.get("s1"),
+      s2: params.get("s2"),
+    });
+  }, [location]);
 
   const handleUploadClick = () => {
     fileInputRef.current.click();
@@ -34,9 +53,13 @@ const SavedVideo = () => {
   const handleConvertClick = async () => {
     const filename = fileInputRef.current.files[0].name;
 
+    // colorSettings 값 출력
+    console.log("colorSettings:", colorSettings);
+
     try {
       const response = await axios.post("http://127.0.0.1:5000/convert_video", {
         filename: filename,
+        colorSettings: colorSettings,
       });
       alert("변환 완료!");
       console.log(response);
