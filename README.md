@@ -16,13 +16,17 @@
 
 내용 : 영상의 HSV 값을 인식 및 변환하여 색각이상자가 영보기 편하도록 수정한 영상을 .
 
-### [주요 기능]
+### [주요 기능 및 코드]
 
+#### - 서버 코드
+"backend\server.py"
 #### - 사용자 맞춤 HSV 색변환 및 테스트
-
+테스트 관련 코드 "frontend\src\components\Test.jsx"
+색 변환 코드     "frontend\src\components\Setting.jsx"
 #### - 테스트 결과 기반 근사 수치 선택 및 실시간 영상 변환
-
+변환 수치 선택   "frontend\src\components\VideoSelect.jsx"
 #### - PC 저장 영상 변환
+저장 영상 변환   "frontend\src\components\SavedVideo.jsx"
 
 ## STRUCTURE
 
