@@ -21,11 +21,22 @@
 #### - 서버 코드
 "backend\server.py"
 #### - 사용자 맞춤 HSV 색변환 및 테스트
+
+![image](https://github.com/CSID-DGU/2023-1-SCS4031--101-/assets/37091694/2580e8cb-600d-4ee7-9c19-21043ecf40e8)
+![image2](https://github.com/CSID-DGU/2023-1-SCS4031--101-/assets/37091694/c193cd9b-2771-48fe-9312-f4cec1fea63b)
+
 테스트 관련 코드 "frontend\src\components\Test.jsx"
 <br>색 변환 코드     "frontend\src\components\Setting.jsx"
 #### - 테스트 결과 기반 근사 수치 선택 및 실시간 영상 변환
+
+![image3](https://github.com/CSID-DGU/2023-1-SCS4031--101-/assets/37091694/c054ae2b-81bc-4b8a-bc2b-45a49dc217c1)
+![image4](https://github.com/CSID-DGU/2023-1-SCS4031--101-/assets/37091694/36636f8e-2510-45de-8eda-b37638fe7551)
 변환 수치 선택   "frontend\src\components\VideoSelect.jsx"
 #### - PC 저장 영상 변환
+
+![image5](https://github.com/CSID-DGU/2023-1-SCS4031--101-/assets/37091694/b48f0c73-5cb4-4e33-bf1c-f28b8da64d33)
+![image6](https://github.com/CSID-DGU/2023-1-SCS4031--101-/assets/37091694/5fe7fcce-2636-4dec-b6c6-e85b9c2209d0)
+
 저장 영상 변환   "frontend\src\components\SavedVideo.jsx"
 
 ## STRUCTURE
