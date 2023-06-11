@@ -14,7 +14,7 @@
 # INTRODUCE
 주제 : 색각 이상자의 교육 접근성을 개선하는 실시간 영상 보정 서비스
 
-내용 : 웹캠으로 촬영중인 영상에 있어서, HSV색공간에 대하여 사용자의 상황에 따른 보정치를 적용하여, 실시간으로 OpenCV에 의한 색상 보정 기능을 제공.
+내용 : 영상의 HSV 값을 인식 및 변환하여 색각이상자가 영보기 편하도록 수정한 영상을 .
 
 ### [주요 기능]
 
@@ -53,6 +53,10 @@ npm run dev
 <br>
 
 ## References: 
+- https://docs.opencv.org/
+- https://github.com/topics/opencv
+- https://www.charlezz.com/?p=44958
+- https://github.com/Lewis-Ho/ishihara
 
 ## Video Link:
 - (데모영상 링크)
