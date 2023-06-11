@@ -1,5 +1,5 @@
 # 2023-1-OSSProj-Team 101
-<img alt="BSD-2-Clause" src ="https://img.shields.io/badge/license-MIT-salmon(https://img.shields.io/badge/BSD%202--Clause-license-lightgrey)"> <img alt="" src ="https://img.shields.io/badge/pygame-2.1.2-lightsalmon"> <img alt="" src ="https://img.shields.io/badge/OS-ubuntu-coral"> <img alt="" src ="https://img.shields.io/badge/IDE-VSCode-indianred"><br>
+<img alt="BSD-2-Clause" src ="https://img.shields.io/badge/BSD%202--Clause-license-lightgrey"> <img alt="" src ="https://img.shields.io/badge/pygame-2.1.2-lightsalmon"> <img alt="" src ="https://img.shields.io/badge/OS-ubuntu-coral"> <img alt="" src ="https://img.shields.io/badge/IDE-VSCode-indianred"><br>
 
 
 주제 : 색각 이상자의 접근성을 개선하는 실시간 영상 보정 서비스
