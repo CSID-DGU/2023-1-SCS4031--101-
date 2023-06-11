@@ -36,6 +36,13 @@ const Header = () => {
         if (e.target.innerText === "서비스 소개") {
           window.scrollTo({ top: 0, behavior: "smooth" });
         }
+
+        if (e.target.innerText === "문의") {
+          window.scrollTo({
+            top: document.body.scrollHeight,
+            behavior: "smooth",
+          });
+        }
       });
     });
   }, []);
@@ -71,6 +78,7 @@ const Wrap = styled.div`
   top: 0;
   background-color: ${(props) => (props.scrollY > 1 ? "black" : "transparent")};
   transition: 0.5s;
+  width: 100%;
 
   .headerWrap {
     width: 100vw;
@@ -114,17 +122,6 @@ const Wrap = styled.div`
       padding: 10px 20px;
       background: rgba(255, 239, 0, 0.8);
       border-radius: 20px;
-    }
-
-    nav #marker {
-      position: absolute;
-      left: 0;
-      height: 4px;
-      width: 0;
-      background: #fff;
-      top: 60px;
-      transition: 0.5s;
-      border-radius: 4px;
     }
   }
 `;
