@@ -51,8 +51,6 @@ const VideoSelect = () => {
       wrapElement2.removeChild(imgElement2);
       wrapElement3.removeChild(imgElement3);
       wrapElementPre.removeChild(imgElementPre);
-      // Stop the camera when the component is unmounted
-      // fetch("http://127.0.0.1:5000/stop");
     };
   }, [location]);
 

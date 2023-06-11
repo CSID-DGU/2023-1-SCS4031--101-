@@ -71,6 +71,7 @@ const Wrap = styled.div`
   top: 0;
   background-color: ${(props) => (props.scrollY > 1 ? "black" : "transparent")};
   transition: 0.5s;
+  width: 100%;
 
   .headerWrap {
     width: 100vw;

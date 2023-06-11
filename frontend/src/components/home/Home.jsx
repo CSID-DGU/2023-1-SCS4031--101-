@@ -192,6 +192,8 @@ const Wrap = styled.div`
     display: flex;
     width: 80%;
     position: relative;
+    /* border: 1px solid white; */
+    top: 30px;
 
     img {
       position: relative;
@@ -261,6 +263,7 @@ const Wrap = styled.div`
     width: 100%;
     background: #fff;
     box-sizing: border-box;
+    top: 30px;
   }
 
   .chalk {
