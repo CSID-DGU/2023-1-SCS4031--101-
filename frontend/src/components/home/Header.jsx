@@ -59,7 +59,9 @@ const Header = () => {
           <div id="marker"></div>
           <a>서비스 소개</a>
           <a>문의</a>
-          <a>시작하기</a>
+          <Link to="/">
+            <div>시작하기</div>
+          </Link>
         </nav>
       </div>
     </Wrap>
