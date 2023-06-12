@@ -30,6 +30,7 @@ const Ask = () => {
       .then(
         (result) => {
           console.log(result.text);
+          alert("전송이 완료되었습니다!");
         },
         (error) => {
           console.log(error.text);
