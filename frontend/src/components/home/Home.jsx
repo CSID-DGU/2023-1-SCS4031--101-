@@ -10,6 +10,7 @@ import NotOriginal from "../../assets/NotOriginal.jpg";
 import Triangle from "../../assets/Triangle.png";
 import Logo from "../../assets/Logo.png";
 import { TypeAnimation } from "react-type-animation";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const originalImgRef = useRef(null);
@@ -98,12 +99,14 @@ const Home = () => {
           <div className="textBx2">
             빠르게 실시간으로 비디오를 변환해 보세요!
           </div>
-          <div className="textBx3">
-            비디오 변환하기
-            <div className="imgWrap">
-              <img src={ConvertImg} />
+          <Link to="/" style={{ textDecoration: "none" }}>
+            <div className="textBx3">
+              비디오 변환하기
+              <div className="imgWrap">
+                <img src={ConvertImg} />
+              </div>
             </div>
-          </div>
+          </Link>
         </div>
       </div>
       <div className="spacer">
