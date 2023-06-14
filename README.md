@@ -40,8 +40,22 @@
 저장 영상 변환   "frontend\src\components\SavedVideo.jsx"
 
 ## STRUCTURE
+<br>
 
+프로그램 구성도
 
+<br>
+
+![1](https://github.com/CSID-DGU/2023-1-SCS4031--101-/assets/37091694/af4a2148-a80d-4fe2-a84a-5c983f438a0d)
+
+<br>
+
+시스템 구성도
+<br>
+
+![2](https://github.com/CSID-DGU/2023-1-SCS4031--101-/assets/37091694/c5d378db-36af-4337-82a7-23bbc5341013)
+
+<br>
 
 ## TO RUN THIS Program
 ```
@@ -74,4 +88,4 @@ npm run dev
 - https://github.com/Lewis-Ho/ishihara
 
 ## Video Link:
-- (데모영상 링크)
+- https://www.youtube.com/watch?v=fWJfmfz_0-k
