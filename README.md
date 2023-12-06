@@ -59,17 +59,17 @@
 
 ## TO RUN THIS Program
 ```
-'pip 설치 필요시'
+**pip 설치 필요시**
 apt install python3-pip
 
 git clone https://github.com/CSID-DGU/2023-1-SCS4031--101-
-`backend 실행`
+**backend 실행**
 cd backend 
 pip install opencv-python
 pip install moviepy
 python3 server.py
 
-`frontend 실행`
+**frontend 실행**
 cd frontend
 npm install
 npm run dev
